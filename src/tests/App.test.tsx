@@ -4,6 +4,6 @@ import App from "../App";
 
 test("renders Chitter static text", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Chitter/i);
-  expect(linkElement).toBeInTheDocument();
+  const text = getByText(/Chitter/i);
+  expect(text).toBeInTheDocument();
 });
