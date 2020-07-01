@@ -4,7 +4,7 @@ module.exports = {
   parserOptions: {
     project: "./tsconfig.json"
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "jest"],
   extends: [
     "airbnb-typescript",
     "airbnb/hooks",
@@ -12,7 +12,8 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
   ],
   settings: {
     react: {
