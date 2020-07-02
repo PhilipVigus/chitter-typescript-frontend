@@ -4,6 +4,11 @@ import PeepsList from "../components/PeepsList";
 
 test("renders static text", () => {
   const { getByText } = render(<PeepsList />);
-  const linkElement = getByText(/Peeps List/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(getByText(/Peeps List/)).toBeInTheDocument();
+});
+
+test("renders list of peeps", () => {
+  const { getByText } = render(<PeepsList />);
+  expect(getByText(/This is a peep/)).toBeInTheDocument();
+  expect(getByText(/This is another peep/)).toBeInTheDocument();
 });
