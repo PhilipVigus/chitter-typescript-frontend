@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PeepsList: React.FC = () => {
-  const [peeps, setPeeps] = useState([]);
+  const [peeps, setPeeps] = useState<string[]>([]);
 
   useEffect(() => {
     const { CancelToken } = axios;
