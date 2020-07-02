@@ -4,6 +4,7 @@ const NewPeepForm: React.FC = () => {
   return (
     <div>
       <div>New Peep</div>
+      <textarea />
     </div>
   );
 };
