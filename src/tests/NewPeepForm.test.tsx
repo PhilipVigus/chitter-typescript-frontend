@@ -11,7 +11,7 @@ describe("NewPeepForm", () => {
 
   it("renders a text area you can type in", () => {
     const { getByRole } = render(<NewPeepForm />);
-    const textArea = getByRole("textbox");
+    const textArea = getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
     expect(textArea.value).toBe("Some text");
   });
