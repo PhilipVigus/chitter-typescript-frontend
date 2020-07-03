@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import PeepsList from "../components/PeepsList";
@@ -18,15 +18,15 @@ describe("PeepsList", () => {
   });
 
   it("renders static text", async () => {
-    const { findByText } = render(<PeepsList />);
+    render(<PeepsList />);
 
-    expect(await findByText(/Peeps List/)).toBeInTheDocument();
+    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
   });
 
   it("renders list of peeps", async () => {
-    const { findByText } = render(<PeepsList />);
+    render(<PeepsList />);
 
-    expect(await findByText(/Peep 1/)).toBeInTheDocument();
-    expect(await findByText(/Peep 2/)).toBeInTheDocument();
+    expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
+    expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
   });
 });
