@@ -12,8 +12,8 @@ jobs:
             - run: yarn install
             - run: yarn test
   deploy:
-    macos:
-      xcode: "9.0"
+    machine:
+      image: ubuntu-1604:202004-01
     steps:
       - run: curl -X POST -d {} ${netlify}
 workflows:
