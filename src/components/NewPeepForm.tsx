@@ -18,6 +18,7 @@ const NewPeepForm: React.FC = () => {
     };
 
     sendNewPeep();
+    setText("");
   };
   return (
     <div>
