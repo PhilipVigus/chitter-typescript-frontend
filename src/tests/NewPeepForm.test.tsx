@@ -1,17 +1,17 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import NewPeepForm from "../components/NewPeepForm";
 
 describe("NewPeepForm", () => {
   it("renders static text", async () => {
-    const { findByText } = render(<NewPeepForm />);
+    render(<NewPeepForm />);
 
-    expect(await findByText(/New Peep/)).toBeInTheDocument();
+    expect(await screen.findByText(/New Peep/)).toBeInTheDocument();
   });
 
   it("renders a text area you can type in", () => {
-    const { getByRole } = render(<NewPeepForm />);
-    const textArea = getByRole("textbox") as HTMLInputElement;
+    render(<NewPeepForm />);
+    const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
     expect(textArea.value).toBe("Some text");
   });
