@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const NewPeepForm: React.FC = () => {
+export type NewPeepFormProps = {
+  newPeepCallback: () => void;
+};
+
+const NewPeepForm: React.FC<NewPeepFormProps> = ({
+  newPeepCallback
+}: NewPeepFormProps) => {
   const [text, setText] = useState<string>("");
 
   const handlePeepSubmit = (
@@ -19,7 +25,9 @@ const NewPeepForm: React.FC = () => {
 
     sendNewPeep();
     setText("");
+    newPeepCallback();
   };
+
   return (
     <div>
       <div>New Peep</div>
