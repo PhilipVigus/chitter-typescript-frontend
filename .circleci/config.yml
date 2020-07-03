@@ -23,10 +23,10 @@ workflows:
   build-and-test:
     jobs:
       - build-and-test:
-        filters:
-          branches:
-            ignore: master
+          filters:
+            branches:
+              ignore: master
       - deploy:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
