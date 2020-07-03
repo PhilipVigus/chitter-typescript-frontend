@@ -5,6 +5,7 @@ import PeepsList from "./PeepsList";
 
 const PeepsContainer: React.FC = () => {
   const [peeps, setPeeps] = useState<string[]>([]);
+  const [lastUpdateTime, setLastUpdateTime] = useState<number>(0);
 
   useEffect(() => {
     const { CancelToken } = axios;
@@ -24,15 +25,16 @@ const PeepsContainer: React.FC = () => {
           }
         });
     };
+
     fetchPeeps();
 
     return () => {
       source.cancel("Peeps get request cancelled");
     };
-  }, []);
+  }, [lastUpdateTime]);
 
   const onNewPeep = () => {
-    console.log("new peep");
+    setLastUpdateTime(Date.now());
   };
 
   return (
