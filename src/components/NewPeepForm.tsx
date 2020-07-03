@@ -5,6 +5,7 @@ const NewPeepForm: React.FC = () => {
     <div>
       <div>New Peep</div>
       <textarea />
+      <input type="submit" value="Submit" />
     </div>
   );
 };

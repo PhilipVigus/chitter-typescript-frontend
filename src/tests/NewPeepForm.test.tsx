@@ -15,4 +15,9 @@ describe("NewPeepForm", () => {
     fireEvent.change(textArea, { target: { value: "Some text" } });
     expect(textArea.value).toBe("Some text");
   });
+
+  it("renders a submit button for the new peep", () => {
+    render(<NewPeepForm />);
+    expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
+  });
 });
