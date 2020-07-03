@@ -16,8 +16,10 @@ jobs:
       macos:
         xcode: "9.0"
     steps:
-      - run: curl -X POST -d {} ${netlify}
+      - run:
+        command: curl -X POST -d {} ${netlify}
 workflows:
+  version: 2
   build-and-test:
     jobs:
       - build-and-test:
