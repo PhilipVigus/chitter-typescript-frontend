@@ -11,7 +11,17 @@ jobs:
           steps:
             - run: yarn install
             - run: yarn test
+  deploy:
+    steps:
+      - run: curl -X POST -d {} ${netlify}
 workflows:
   build-and-test:
     jobs:
-      - build-and-test
+      - build-and-test:
+        filters:
+          branches:
+            ignore: master
+      - deploy:
+        filters:
+          branches:
+            only: master
