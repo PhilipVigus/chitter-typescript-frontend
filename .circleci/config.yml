@@ -12,6 +12,8 @@ jobs:
             - run: yarn install
             - run: yarn test
   deploy:
+    machine:
+      image: ubuntu-1604:202004-01
     steps:
       - run: curl -X POST -d {} ${netlify}
 workflows:
