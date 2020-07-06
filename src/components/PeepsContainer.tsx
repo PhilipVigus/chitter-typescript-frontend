@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NewPeepForm from "./NewPeepForm";
 import PeepsList from "./PeepsList";
+import { PeepProps } from "./Peep";
 
 const PeepsContainer: React.FC = () => {
-  const [peeps, setPeeps] = useState<string[]>([]);
+  const [peeps, setPeeps] = useState<PeepProps[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<number>(0);
 
   useEffect(() => {
