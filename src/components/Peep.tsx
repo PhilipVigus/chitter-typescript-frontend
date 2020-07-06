@@ -1,6 +1,6 @@
 import React from "react";
 
-type PeepProps = {
+export type PeepProps = {
   text: string;
 };
 
