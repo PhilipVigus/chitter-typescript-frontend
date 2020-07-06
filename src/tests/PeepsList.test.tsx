@@ -10,7 +10,7 @@ describe("PeepsList", () => {
   });
 
   it("renders list of peeps", async () => {
-    render(<PeepsList peeps={["Peep 1", "Peep 2"]} />);
+    render(<PeepsList peeps={[{ text: "Peep 1" }, { text: "Peep 2" }]} />);
 
     expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
     expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();

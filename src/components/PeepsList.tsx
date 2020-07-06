@@ -1,7 +1,8 @@
 import React from "react";
+import Peep, { PeepProps } from "./Peep";
 
 type PeepsListProps = {
-  peeps: string[];
+  peeps: PeepProps[];
 };
 
 const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
@@ -9,7 +10,7 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
     <div>
       <div>Peeps List</div>
       {peeps.map((peep) => {
-        return <div key={peep}>{peep}</div>;
+        return <Peep key={peep.text} text={peep.text} />;
       })}
     </div>
   );

@@ -10,7 +10,7 @@ describe("PeepsContainer", () => {
   beforeAll(() => {
     mock
       .onGet("https://localhost:5000/peeps")
-      .reply(200, { peeps: ["Peep 1", "Peep 2"] });
+      .reply(200, { peeps: [{ text: "Peep 1" }, { text: "Peep 2" }] });
   });
 
   afterAll(() => {
@@ -33,9 +33,11 @@ describe("PeepsContainer", () => {
   it("renders a new peep when it has been created", async () => {
     mock
       .onGet("https://localhost:5000/peeps")
-      .reply(200, { peeps: ["Peep 1", "Peep 2"] })
+      .reply(200, { peeps: [{ text: "Peep 1" }, { text: "Peep 2" }] })
       .onGet("https://localhost:5000/peeps")
-      .reply(200, { peeps: ["Peep 1", "Peep 2", "Some text"] });
+      .reply(200, {
+        peeps: [{ text: "Peep 1" }, { text: "Peep 2" }, { text: "Some text" }]
+      });
 
     mock.onPost("https://localhost:5000/peeps").reply(200);
 
