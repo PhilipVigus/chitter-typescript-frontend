@@ -1,16 +1,27 @@
 import React from "react";
+import Peep, { PeepProps } from "./Peep";
 
 type PeepsListProps = {
-  peeps: string[];
+  peeps: PeepProps[];
 };
 
 const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
   return (
     <div>
       <div>Peeps List</div>
-      {peeps.map((peep) => {
-        return <div key={peep}>{peep}</div>;
-      })}
+      {peeps
+        .sort((a: PeepProps, b: PeepProps) => {
+          return a.timeCreated - b.timeCreated;
+        })
+        .map((peep) => {
+          return (
+            <Peep
+              key={peep.text}
+              text={peep.text}
+              timeCreated={peep.timeCreated}
+            />
+          );
+        })}
     </div>
   );
 };
