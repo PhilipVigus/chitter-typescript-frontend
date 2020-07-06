@@ -10,7 +10,13 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
     <div>
       <div>Peeps List</div>
       {peeps.map((peep) => {
-        return <Peep key={peep.text} text={peep.text} />;
+        return (
+          <Peep
+            key={peep.text}
+            text={peep.text}
+            timeCreated={peep.timeCreated}
+          />
+        );
       })}
     </div>
   );
