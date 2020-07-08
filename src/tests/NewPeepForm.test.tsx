@@ -8,7 +8,7 @@ describe("NewPeepForm", () => {
   const mock = new MockAdapter(axios);
 
   beforeAll(() => {
-    mock.onPost("https://localhost:5000/peeps").reply(200);
+    mock.onPost("http://localhost:5000/peeps").reply(200);
   });
 
   afterAll(() => {

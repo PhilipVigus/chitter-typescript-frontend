@@ -14,7 +14,7 @@ const PeepsContainer: React.FC = () => {
 
     const fetchPeeps = async () => {
       axios
-        .get("https://localhost:5000/peeps", {
+        .get("http://localhost:5000/peeps", {
           cancelToken: source.token
         })
         .then((result) => setPeeps(result.data.peeps))

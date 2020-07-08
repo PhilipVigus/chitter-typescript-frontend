@@ -6,7 +6,7 @@ import App from "../App";
 
 test("renders Chitter static text", async () => {
   const mock = new MockAdapter(axios);
-  mock.onGet("https://localhost:5000/peeps").reply(200, { peeps: [] });
+  mock.onGet("http://localhost:5000/peeps").reply(200, { peeps: [] });
   render(<App />);
   expect(await screen.findByText(/Chitter/)).toBeInTheDocument();
 });

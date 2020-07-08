@@ -8,7 +8,7 @@ describe("PeepsContainer", () => {
   const mock = new MockAdapter(axios);
 
   beforeAll(() => {
-    mock.onGet("https://localhost:5000/peeps").reply(200, {
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
         { text: "Peep 1", timeCreated: 1594030856065 },
         { text: "Peep 2", timeCreated: 1594030856065 }
@@ -42,7 +42,7 @@ describe("PeepsContainer", () => {
           { text: "Peep 2", timeCreated: 1594030856065 }
         ]
       })
-      .onGet("https://localhost:5000/peeps")
+      .onGet("http://localhost:5000/peeps")
       .reply(200, {
         peeps: [
           { text: "Peep 1", timeCreated: 1594030856065 },
@@ -51,7 +51,7 @@ describe("PeepsContainer", () => {
         ]
       });
 
-    mock.onPost("https://localhost:5000/peeps").reply(200);
+    mock.onPost("http://localhost:5000/peeps").reply(200);
 
     render(<PeepsContainer />);
 
