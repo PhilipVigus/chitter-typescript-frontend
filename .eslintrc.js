@@ -19,5 +19,9 @@ module.exports = {
     react: {
       version: "detect"
     }
+  },
+  rules: {
+    "no-underscore-dangle": "off",
+    "no-else-return": "off"
   }
 };

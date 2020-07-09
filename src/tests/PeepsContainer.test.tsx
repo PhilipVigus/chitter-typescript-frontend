@@ -8,10 +8,10 @@ describe("PeepsContainer", () => {
   const mock = new MockAdapter(axios);
 
   beforeAll(() => {
-    mock.onGet("https://localhost:5000/peeps").reply(200, {
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
-        { text: "Peep 1", timeCreated: 1594030856065 },
-        { text: "Peep 2", timeCreated: 1594030856065 }
+        { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
+        { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
       ]
     });
   });
@@ -35,23 +35,23 @@ describe("PeepsContainer", () => {
 
   it("renders a new peep when it has been created", async () => {
     mock
-      .onGet("https://localhost:5000/peeps")
+      .onGet("http://localhost:5000/peeps")
       .reply(200, {
         peeps: [
-          { text: "Peep 1", timeCreated: 1594030856065 },
-          { text: "Peep 2", timeCreated: 1594030856065 }
+          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
+          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
         ]
       })
-      .onGet("https://localhost:5000/peeps")
+      .onGet("http://localhost:5000/peeps")
       .reply(200, {
         peeps: [
-          { text: "Peep 1", timeCreated: 1594030856065 },
-          { text: "Peep 2", timeCreated: 1594030856065 },
-          { text: "Some text", timeCreated: 1594030856065 }
+          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
+          { _id: 2, _text: "Peep 2", _timeCreated: new Date() },
+          { _id: 3, _text: "Some text", _timeCreated: new Date() }
         ]
       });
 
-    mock.onPost("https://localhost:5000/peeps").reply(200);
+    mock.onPost("http://localhost:5000/peeps").reply(200);
 
     render(<PeepsContainer />);
 
