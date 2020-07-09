@@ -17,7 +17,9 @@ const PeepsContainer: React.FC = () => {
         .get("http://localhost:5000/peeps", {
           cancelToken: source.token
         })
-        .then((result) => setPeeps(result.data.peeps))
+        .then((result) => {
+          setPeeps(result.data.peeps);
+        })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
             console.log("Peeps get request cancelled");

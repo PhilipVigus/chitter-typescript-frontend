@@ -13,8 +13,8 @@ describe("PeepsList", () => {
     render(
       <PeepsList
         peeps={[
-          { text: "Peep 1", timeCreated: 1594030856065 },
-          { text: "Peep 2", timeCreated: 1594030856065 }
+          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
+          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
         ]}
       />
     );
@@ -27,17 +27,17 @@ describe("PeepsList", () => {
     render(
       <PeepsList
         peeps={[
-          { text: "Text 1", timeCreated: 1594030856065 },
-          { text: "Text 2", timeCreated: 1404030856065 },
-          { text: "Text 3", timeCreated: 1494030856065 }
+          { _id: 1, _text: "Text 1", _timeCreated: new Date() },
+          { _id: 2, _text: "Text 2", _timeCreated: new Date() },
+          { _id: 3, _text: "Text 3", _timeCreated: new Date() }
         ]}
       />
     );
 
     const peeps = await screen.findAllByText(/Text/);
 
-    expect(peeps[0].innerHTML).toBe("Text 2");
-    expect(peeps[1].innerHTML).toBe("Text 3");
+    expect(peeps[0].innerHTML).toBe("Text 3");
+    expect(peeps[1].innerHTML).toBe("Text 2");
     expect(peeps[2].innerHTML).toBe("Text 1");
   });
 });
