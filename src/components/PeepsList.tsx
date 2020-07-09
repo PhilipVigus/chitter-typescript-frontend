@@ -11,14 +11,19 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
       <div>Peeps List</div>
       {peeps
         .sort((a: PeepProps, b: PeepProps) => {
-          return a.timeCreated - b.timeCreated;
+          if (new Date(a._timeCreated) < new Date(b._timeCreated)) {
+            return 1;
+          } else {
+            return -1;
+          }
         })
         .map((peep) => {
           return (
             <Peep
-              key={peep.text}
-              text={peep.text}
-              timeCreated={peep.timeCreated}
+              key={peep._id}
+              _id={peep._id}
+              _text={peep._text}
+              _timeCreated={peep._timeCreated}
             />
           );
         })}

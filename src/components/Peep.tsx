@@ -1,13 +1,14 @@
 import React from "react";
 
 export type PeepProps = {
-  text: string;
-  timeCreated: number;
+  _id: number;
+  _text: string;
+  _timeCreated: Date;
 };
 
-const Peep: React.FC<PeepProps> = ({ text, timeCreated }: PeepProps) => {
+const Peep: React.FC<PeepProps> = ({ _text, _timeCreated }: PeepProps) => {
   const getTimeCreatedString = () => {
-    const date = new Date(timeCreated);
+    const date = new Date(_timeCreated);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
       date.getMonth() + 1
     }-${date.getFullYear()}`;
@@ -16,7 +17,7 @@ const Peep: React.FC<PeepProps> = ({ text, timeCreated }: PeepProps) => {
   return (
     <div>
       <div>
-        <span>{text}</span> - <span>{getTimeCreatedString()}</span>
+        <span>{_text}</span> - <span>{getTimeCreatedString()}</span>
       </div>
     </div>
   );
