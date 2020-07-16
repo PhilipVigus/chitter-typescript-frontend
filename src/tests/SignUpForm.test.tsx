@@ -8,4 +8,10 @@ describe("SignupForm", () => {
 
     expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
   });
+
+  it("renders the password textbox", () => {
+    render(<SignUpForm />);
+
+    expect(screen.getByLabelText(/Password/)).toBeInTheDocument();
+  });
 });
