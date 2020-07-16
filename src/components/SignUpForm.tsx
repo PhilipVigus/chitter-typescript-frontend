@@ -7,7 +7,7 @@ const SignUpForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSignupSubmit = (
-    evt: React.MouseEvent<HTMLInputElement, MouseEvent>
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     evt.preventDefault();
     const data = { username, password };
