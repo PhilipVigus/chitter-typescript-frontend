@@ -4,12 +4,16 @@ const SignUpForm: React.FC = () => {
   return (
     <div>
       <div>
-        <label htmlFor="username">Username</label>
-        <input type="textbox" id="username" />
+        <label htmlFor="username">
+          Username
+          <input type="text" id="username" />
+        </label>
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" />
+        <label htmlFor="password">
+          <input type="password" id="password" />
+          Password
+        </label>
       </div>
     </div>
   );
