@@ -4,6 +4,7 @@ import axios from "axios";
 const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSignupSubmit = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -14,8 +15,16 @@ const SignUpForm: React.FC = () => {
     const sendSignup = async () => {
       axios
         .post("https://localhost:5000/signup", data)
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+        .then((response) => {
+          console.log("Successful signup");
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            setErrorMessage("Unsuccessful signup");
+          } else {
+            console.log(error);
+          }
+        });
     };
 
     sendSignup();
@@ -50,6 +59,7 @@ const SignUpForm: React.FC = () => {
           Submit
         </button>
       </div>
+      <div>{errorMessage}</div>
     </div>
   );
 };
