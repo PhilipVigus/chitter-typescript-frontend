@@ -61,6 +61,8 @@ describe("NewPeepForm", () => {
     const submitButton = screen.getByRole("button", { name: "Submit" });
     fireEvent.click(submitButton);
 
-    expect(mockCallback).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockCallback).toHaveBeenCalledTimes(1);
+    });
   });
 });
