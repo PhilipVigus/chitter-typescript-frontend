@@ -1,12 +1,15 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import PeepsContainer from "./components/PeepsContainer";
+import MainContainer from "./components/MainContainer";
 
 function App(): JSX.Element {
   return (
     <div>
       <div>Chitter</div>
-      <PeepsContainer />
+      <Router>
+        <MainContainer />
+      </Router>
     </div>
   );
 }
