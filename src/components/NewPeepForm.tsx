@@ -20,7 +20,6 @@ const NewPeepForm: React.FC<NewPeepFormProps> = ({
       axios
         .post("http://localhost:5000/peeps", data)
         .then((response) => {
-          console.log(response);
           newPeepCallback();
         })
         .catch((error) => console.log(error));
