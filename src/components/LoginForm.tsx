@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const history = useHistory();
 
   const handleLoginSubmit = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -15,8 +17,8 @@ const LoginForm: React.FC = () => {
     const sendLogin = async () => {
       axios
         .post("http://localhost:5000/sessions", data)
-        .then((response) => {
-          setErrorMessage(`${response.data.id} - ${response.data.username}`);
+        .then(() => {
+          history.push("/peeps");
         })
         .catch((error) => {
           if (error.response.status === 422) {
