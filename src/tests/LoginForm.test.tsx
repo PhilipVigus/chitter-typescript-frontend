@@ -42,4 +42,24 @@ describe("LoginForm", () => {
 
     expect(await screen.findByText(/1 - bob/)).toBeInTheDocument();
   });
+
+  it("renders an error when log in is unsuccessful", async () => {
+    mock
+      .onPost("http://localhost:5000/sessions")
+      .reply(422, { error: "Username not found" });
+
+    render(<LoginForm />);
+
+    const usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "bob" } });
+    const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    expect(await screen.findByText(/Username not found/)).toBeInTheDocument();
+  });
 });
