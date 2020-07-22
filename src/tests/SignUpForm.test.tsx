@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
@@ -12,26 +13,40 @@ describe("SignupForm", () => {
   });
 
   it("renders the username textbox", () => {
-    render(<SignUpForm />);
+    render(
+      <Router>
+        <SignUpForm />
+      </Router>
+    );
 
     expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
   });
 
   it("renders the password textbox", () => {
-    render(<SignUpForm />);
+    render(
+      <Router>
+        <SignUpForm />
+      </Router>
+    );
 
     expect(screen.getByLabelText(/Password/)).toBeInTheDocument();
   });
 
   it("posts the information to the server when you click signup", async () => {
-    mock.onPost("http://localhost:5000/users").reply(200);
-    render(<SignUpForm />);
+    mock
+      .onPost("http://localhost:5000/users")
+      .reply(200, { id: 1, username: "bob" });
+    render(
+      <Router>
+        <SignUpForm />
+      </Router>
+    );
 
     const usernameField = screen.getByRole("textbox", {
       name: "Username"
     }) as HTMLInputElement;
 
-    fireEvent.change(usernameField, { target: { value: "Bob" } });
+    fireEvent.change(usernameField, { target: { value: "bob" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
     fireEvent.change(passwordField, { target: { value: "1234" } });
@@ -39,7 +54,7 @@ describe("SignupForm", () => {
 
     await waitFor(() => {
       expect(mock.history.post[0].data).toBe(
-        JSON.stringify({ username: "Bob", password: "1234" })
+        JSON.stringify({ username: "bob", password: "1234" })
       );
     });
   });

@@ -1,24 +1,22 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-const SignUpForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const history = useHistory();
 
-  const handleSignupSubmit = (
+  const handleLoginSubmit = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     evt.preventDefault();
     const data = { username, password };
 
-    const sendSignup = async () => {
+    const sendLogin = async () => {
       axios
-        .post("http://localhost:5000/users", data)
-        .then(() => {
-          history.push("/login");
+        .post("http://localhost:5000/sessions", data)
+        .then((response) => {
+          setErrorMessage(`${response.data.id} - ${response.data.username}`);
         })
         .catch((error) => {
           if (error.response.status === 422) {
@@ -29,12 +27,12 @@ const SignUpForm: React.FC = () => {
         });
     };
 
-    sendSignup();
+    sendLogin();
   };
 
   return (
     <div>
-      <h2>Sign up</h2>
+      <h2>Log in</h2>
       <div>
         <label htmlFor="username">
           Username
@@ -58,7 +56,7 @@ const SignUpForm: React.FC = () => {
         </label>
       </div>
       <div>
-        <button type="submit" onClick={handleSignupSubmit}>
+        <button type="submit" onClick={handleLoginSubmit}>
           Submit
         </button>
       </div>
@@ -67,4 +65,4 @@ const SignUpForm: React.FC = () => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;
