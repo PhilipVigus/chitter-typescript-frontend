@@ -24,7 +24,7 @@ describe("SignupForm", () => {
   });
 
   it("posts the information to the server when you click signup", async () => {
-    mock.onPost("https://localhost:5000/signup").reply(200);
+    mock.onPost("http://localhost:5000/users").reply(200);
     render(<SignUpForm />);
 
     const usernameField = screen.getByRole("textbox", {
@@ -45,7 +45,9 @@ describe("SignupForm", () => {
   });
 
   it("displays an error if signup is unsuccessful", async () => {
-    mock.onPost("https://localhost:5000/signup").reply(422);
+    mock
+      .onPost("http://localhost:5000/users")
+      .reply(422, { error: "Username already taken" });
     render(<SignUpForm />);
 
     const usernameField = screen.getByRole("textbox", {
@@ -58,6 +60,8 @@ describe("SignupForm", () => {
     fireEvent.change(passwordField, { target: { value: "1234" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
-    expect(await screen.findByText(/Unsuccessful signup/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Username already taken/)
+    ).toBeInTheDocument();
   });
 });

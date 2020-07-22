@@ -14,13 +14,13 @@ const SignUpForm: React.FC = () => {
 
     const sendSignup = async () => {
       axios
-        .post("https://localhost:5000/signup", data)
+        .post("http://localhost:5000/users", data)
         .then((response) => {
           console.log("Successful signup");
         })
         .catch((error) => {
           if (error.response.status === 422) {
-            setErrorMessage("Unsuccessful signup");
+            setErrorMessage(error.response.data.error);
           } else {
             console.log(error);
           }
