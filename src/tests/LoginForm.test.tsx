@@ -26,7 +26,7 @@ describe("LoginForm", () => {
   it("renders an error when log in is unsuccessful", async () => {
     mock
       .onPost("http://localhost:5000/sessions")
-      .reply(422, { error: "Username not found" });
+      .reply(422, { error: "Incorrect login details" });
 
     render(<LoginForm />);
 
@@ -40,6 +40,8 @@ describe("LoginForm", () => {
     fireEvent.change(passwordField, { target: { value: "1234" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
-    expect(await screen.findByText(/Username not found/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Incorrect login details/)
+    ).toBeInTheDocument();
   });
 });
