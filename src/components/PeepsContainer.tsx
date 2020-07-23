@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import cookie from "react-cookies";
 import NewPeepForm from "./NewPeepForm";
 import PeepsList from "./PeepsList";
 import { PeepProps } from "./Peep";
@@ -15,7 +16,12 @@ const PeepsContainer: React.FC = () => {
     const fetchPeeps = async () => {
       axios
         .get("http://localhost:5000/peeps", {
-          cancelToken: source.token
+          cancelToken: source.token,
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
         })
         .then((result) => {
           setPeeps(result.data.peeps);
@@ -42,6 +48,7 @@ const PeepsContainer: React.FC = () => {
 
   return (
     <div>
+      {cookie.load("username")}
       <NewPeepForm newPeepCallback={onNewPeep} />
       <PeepsList peeps={peeps} />
     </div>
