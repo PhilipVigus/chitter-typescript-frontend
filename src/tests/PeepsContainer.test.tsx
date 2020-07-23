@@ -4,6 +4,12 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import PeepsContainer from "../components/PeepsContainer";
 
+jest.mock("react-cookies", () => ({
+  load: jest.fn().mockImplementation(() => {
+    return "phil";
+  })
+}));
+
 describe("PeepsContainer", () => {
   const mock = new MockAdapter(axios);
 
@@ -62,5 +68,10 @@ describe("PeepsContainer", () => {
     fireEvent.click(submitButton);
 
     expect(await screen.findByText(/Some text/)).toBeInTheDocument();
+  });
+
+  it("shows the currently logged in username", async () => {
+    render(<PeepsContainer />);
+    expect(await screen.findByText(/phil/)).toBeInTheDocument();
   });
 });

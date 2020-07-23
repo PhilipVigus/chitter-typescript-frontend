@@ -16,7 +16,13 @@ const LoginForm: React.FC = () => {
 
     const sendLogin = async () => {
       axios
-        .post("http://localhost:5000/sessions", data)
+        .post("http://localhost:5000/sessions", data, {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
+        })
         .then(() => {
           history.push("/peeps");
         })
