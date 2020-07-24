@@ -4,6 +4,7 @@ import PeepsContainer from "./PeepsContainer";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import { UserContextProvider } from "../contexts/UserContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 const MainContainer: React.FC = () => {
   return (
@@ -13,12 +14,12 @@ const MainContainer: React.FC = () => {
           exact
           path="/"
           render={() => {
-            return <Redirect to="/signup" />;
+            return <Redirect to="/login" />;
           }}
         />
         <Route exact path="/signup" component={SignUpForm} />
-        <Route exact path="/peeps" component={PeepsContainer} />
         <Route exact path="/login" component={LoginForm} />
+        <ProtectedRoute exact path="/peeps" component={PeepsContainer} />
       </Switch>
     </UserContextProvider>
   );

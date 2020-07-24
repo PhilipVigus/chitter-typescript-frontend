@@ -12,16 +12,14 @@ describe("MainContainer", () => {
     mock.restore();
   });
 
-  it("renders signup form by by default", () => {
+  it("renders login form by by default", () => {
     render(
       <Router>
         <MainContainer />
       </Router>
     );
 
-    expect(
-      screen.getByRole("heading", { name: "Sign up" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
   });
 
   it("renders renders login when you successfully sign up", async () => {
@@ -30,7 +28,7 @@ describe("MainContainer", () => {
       .reply(200, { id: 1, username: "bob" });
 
     render(
-      <Router>
+      <Router initialEntries={["/signup"]} initialIndex={0}>
         <MainContainer />
       </Router>
     );
@@ -67,7 +65,7 @@ describe("MainContainer", () => {
     });
 
     render(
-      <Router>
+      <Router initialEntries={["/signup"]} initialIndex={0}>
         <MainContainer />
       </Router>
     );
@@ -96,5 +94,15 @@ describe("MainContainer", () => {
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(await screen.findByText("Peeps List")).toBeInTheDocument();
+  });
+
+  it("redirects to login if you try to get the peeps list without logging", () => {
+    render(
+      <Router initialEntries={["/peeps"]} initialIndex={0}>
+        <MainContainer />
+      </Router>
+    );
+
+    expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
   });
 });
