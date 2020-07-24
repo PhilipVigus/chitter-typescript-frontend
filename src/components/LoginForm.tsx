@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import cookie from "react-cookies";
+import { UserContext } from "../contexts/UserContext";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const history = useHistory();
+  const [, setUserState] = useContext(UserContext);
 
   const handleLoginSubmit = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -24,6 +27,10 @@ const LoginForm: React.FC = () => {
           }
         })
         .then(() => {
+          setUserState({
+            name: cookie.load("username"),
+            id: cookie.load("id")
+          });
           history.push("/peeps");
         })
         .catch((error) => {

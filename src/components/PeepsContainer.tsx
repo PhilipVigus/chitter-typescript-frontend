@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import cookie from "react-cookies";
 import NewPeepForm from "./NewPeepForm";
 import PeepsList from "./PeepsList";
 import { PeepProps } from "./Peep";
+import { UserContext } from "../contexts/UserContext";
 
 const PeepsContainer: React.FC = () => {
   const [peeps, setPeeps] = useState<PeepProps[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<number>(0);
+  const [userState] = useContext(UserContext);
 
   useEffect(() => {
     const { CancelToken } = axios;
@@ -48,7 +49,7 @@ const PeepsContainer: React.FC = () => {
 
   return (
     <div>
-      {cookie.load("username")}
+      {userState.name}
       <NewPeepForm newPeepCallback={onNewPeep} />
       <PeepsList peeps={peeps} />
     </div>

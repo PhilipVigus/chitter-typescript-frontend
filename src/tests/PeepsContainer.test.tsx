@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import PeepsContainer from "../components/PeepsContainer";
+import { UserContextProvider } from "../contexts/UserContext";
 
 jest.mock("react-cookies", () => ({
   load: jest.fn().mockImplementation(() => {
@@ -71,7 +72,11 @@ describe("PeepsContainer", () => {
   });
 
   it("shows the currently logged in username", async () => {
-    render(<PeepsContainer />);
+    render(
+      <UserContextProvider initialState={{ name: "phil", id: 3 }}>
+        <PeepsContainer />
+      </UserContextProvider>
+    );
     expect(await screen.findByText(/phil/)).toBeInTheDocument();
   });
 });
