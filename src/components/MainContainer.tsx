@@ -21,7 +21,7 @@ const MainContainer: React.FC = () => {
         <Route exact path="/signup" component={SignUpForm} />
         <Route exact path="/login" component={LoginForm} />
         <ProtectedRoute exact path="/peeps" component={PeepsContainer} />
-        <ProtectedRoute exact path="/peeps/:id" component={Peep} />
+        <ProtectedRoute exact path="/peep" component={Peep} />
       </Switch>
     </UserContextProvider>
   );

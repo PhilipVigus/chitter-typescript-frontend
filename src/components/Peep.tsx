@@ -1,13 +1,5 @@
 import React from "react";
 
-export type PeepProps = {
-  id: number;
-  userId: number;
-  username: string;
-  text: string;
-  timeCreated: Date;
-};
-
 const Peep: React.FC = () => {
   return (
     <div>

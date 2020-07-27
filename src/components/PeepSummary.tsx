@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export type PeepSummaryProps = {
   id: number;
@@ -21,12 +22,12 @@ const PeepSummary: React.FC<PeepSummaryProps> = ({
   };
 
   return (
-    <div>
+    <Link to="/peep">
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

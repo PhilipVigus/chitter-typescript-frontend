@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import PeepSummary, { PeepSummaryProps } from "../components/PeepSummary";
 
 describe("PeepSummary", () => {
@@ -14,14 +15,16 @@ describe("PeepSummary", () => {
 
   it("renders the text", () => {
     render(
-      <PeepSummary
-        key={data.id}
-        id={data.id}
-        userId={data.userId}
-        username={data.username}
-        text={data.text}
-        timeCreated={data.timeCreated}
-      />
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+        />
+      </Router>
     );
 
     expect(screen.getByText(/bob -/)).toBeInTheDocument();
@@ -29,14 +32,16 @@ describe("PeepSummary", () => {
 
   it("renders the time created", () => {
     render(
-      <PeepSummary
-        key={data.id}
-        id={data.id}
-        userId={data.userId}
-        username={data.username}
-        text={data.text}
-        timeCreated={data.timeCreated}
-      />
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+        />
+      </Router>
     );
     expect(screen.getByText(/11:5:23 on 3-6-2020/)).toBeInTheDocument();
   });
