@@ -8,24 +8,10 @@ export type PeepProps = {
   timeCreated: Date;
 };
 
-const Peep: React.FC<PeepProps> = ({
-  username,
-  text,
-  timeCreated
-}: PeepProps) => {
-  const getTimeCreatedString = () => {
-    const date = new Date(timeCreated);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
-      date.getMonth() + 1
-    }-${date.getFullYear()}`;
-  };
-
+const Peep: React.FC = () => {
   return (
     <div>
-      <div>
-        <span>{username} - </span>
-        <span>{text}</span> - <span>{getTimeCreatedString()}</span>
-      </div>
+      <h2>Individual peep</h2>
     </div>
   );
 };
