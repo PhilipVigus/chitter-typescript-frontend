@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import useUserState from "../hooks/useUserState";
 
 export type NewPeepFormProps = {
   newPeepCallback: () => void;
@@ -9,12 +10,13 @@ const NewPeepForm: React.FC<NewPeepFormProps> = ({
   newPeepCallback
 }: NewPeepFormProps) => {
   const [text, setText] = useState<string>("");
+  const { getUserId } = useUserState();
 
   const handlePeepSubmit = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     evt.preventDefault();
-    const data = { text };
+    const data = { userId: getUserId(), text };
 
     const sendNewPeep = async () => {
       axios
