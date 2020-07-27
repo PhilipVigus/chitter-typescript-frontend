@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import PeepsList from "../components/PeepsList";
 
@@ -11,12 +12,26 @@ describe("PeepsList", () => {
 
   it("renders list of peeps", async () => {
     render(
-      <PeepsList
-        peeps={[
-          { id: 1, text: "Peep 1", timeCreated: new Date() },
-          { id: 2, text: "Peep 2", timeCreated: new Date() }
-        ]}
-      />
+      <Router>
+        <PeepsList
+          peeps={[
+            {
+              id: 1,
+              userId: 1,
+              username: "bob",
+              text: "Peep 1",
+              timeCreated: new Date()
+            },
+            {
+              id: 2,
+              userId: 1,
+              username: "bob",
+              text: "Peep 2",
+              timeCreated: new Date()
+            }
+          ]}
+        />
+      </Router>
     );
 
     expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
@@ -25,13 +40,33 @@ describe("PeepsList", () => {
 
   it("renders list of peeps in reverse chronological order", async () => {
     render(
-      <PeepsList
-        peeps={[
-          { id: 1, text: "Text 1", timeCreated: new Date() },
-          { id: 2, text: "Text 2", timeCreated: new Date() },
-          { id: 3, text: "Text 3", timeCreated: new Date() }
-        ]}
-      />
+      <Router>
+        <PeepsList
+          peeps={[
+            {
+              id: 1,
+              userId: 1,
+              username: "bob",
+              text: "Text 1",
+              timeCreated: new Date()
+            },
+            {
+              id: 2,
+              userId: 1,
+              username: "bob",
+              text: "Text 2",
+              timeCreated: new Date()
+            },
+            {
+              id: 3,
+              userId: 1,
+              username: "bob",
+              text: "Text 3",
+              timeCreated: new Date()
+            }
+          ]}
+        />
+      </Router>
     );
 
     const peeps = await screen.findAllByText(/Text/);

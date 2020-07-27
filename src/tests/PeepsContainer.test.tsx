@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
@@ -28,14 +29,21 @@ describe("PeepsContainer", () => {
   });
 
   it("renders static text", async () => {
-    render(<PeepsContainer />);
+    render(
+      <Router>
+        <PeepsContainer />
+      </Router>
+    );
 
     expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
   });
 
   it("renders list of peeps", async () => {
-    render(<PeepsContainer />);
-
+    render(
+      <Router>
+        <PeepsContainer />
+      </Router>
+    );
     expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
     expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
   });
@@ -60,7 +68,11 @@ describe("PeepsContainer", () => {
 
     mock.onPost("http://localhost:5000/peeps").reply(200);
 
-    render(<PeepsContainer />);
+    render(
+      <Router>
+        <PeepsContainer />
+      </Router>
+    );
 
     const textArea = (await screen.findByRole("textbox")) as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
@@ -74,7 +86,9 @@ describe("PeepsContainer", () => {
   it("shows the currently logged in username", async () => {
     render(
       <UserContextProvider initialState={{ name: "phil", id: 3 }}>
-        <PeepsContainer />
+        <Router>
+          <PeepsContainer />
+        </Router>
       </UserContextProvider>
     );
     expect(await screen.findByText(/phil/)).toBeInTheDocument();

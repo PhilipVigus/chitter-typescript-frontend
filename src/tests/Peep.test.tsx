@@ -1,43 +1,50 @@
 import React from "react";
+import { MemoryRouter as Router, Route } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
-import Peep, { PeepProps } from "../components/Peep";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import Peep from "../components/Peep";
 
 describe("Peep", () => {
-  const date = new Date(2020, 5, 3, 11, 5, 23);
-  const data: PeepProps = {
-    id: 1,
-    userId: 1,
-    username: "bob",
-    text: "Peep text",
-    timeCreated: date
-  };
+  const mock = new MockAdapter(axios);
 
-  it("renders the text", () => {
-    render(
-      <Peep
-        key={data.id}
-        id={data.id}
-        userId={data.userId}
-        username={data.username}
-        text={data.text}
-        timeCreated={data.timeCreated}
-      />
-    );
+  beforeAll(() => {
+    const date = new Date(2020, 5, 3, 11, 5, 23);
 
-    expect(screen.getByText(/bob -/)).toBeInTheDocument();
+    mock.onGet("http://localhost:5000/peeps/1").reply(200, {
+      username: "bob",
+      text: "Peep 1",
+      timeCreated: date
+    });
   });
 
-  it("renders the time created", () => {
+  afterAll(() => {
+    mock.restore();
+  });
+
+  it("renders the title", async () => {
     render(
-      <Peep
-        key={data.id}
-        id={data.id}
-        userId={data.userId}
-        username={data.username}
-        text={data.text}
-        timeCreated={data.timeCreated}
-      />
+      <Router initialEntries={["/peeps/1"]}>
+        <Route path="/peeps/:id">
+          <Peep />
+        </Route>
+      </Router>
     );
-    expect(screen.getByText(/11:5:23 on 3-6-2020/)).toBeInTheDocument();
+
+    expect(await screen.findByText(/Individual peep/)).toBeInTheDocument();
+  });
+
+  it("renders the peep details", async () => {
+    render(
+      <Router initialEntries={["/peeps/1"]}>
+        <Route path="/peeps/:id">
+          <Peep />
+        </Route>
+      </Router>
+    );
+
+    expect(await screen.findByText(/bob/)).toBeInTheDocument();
+    expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
+    expect(await screen.findByText(/11:5:23 on 3-6-2020/)).toBeInTheDocument();
   });
 });
