@@ -17,8 +17,8 @@ describe("PeepsContainer", () => {
   beforeAll(() => {
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
-        { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-        { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
+        { id: 1, text: "Peep 1", timeCreated: new Date() },
+        { id: 2, text: "Peep 2", timeCreated: new Date() }
       ]
     });
   });
@@ -45,16 +45,16 @@ describe("PeepsContainer", () => {
       .onGet("http://localhost:5000/peeps")
       .reply(200, {
         peeps: [
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
+          { id: 1, text: "Peep 1", timeCreated: new Date() },
+          { id: 2, text: "Peep 2", timeCreated: new Date() }
         ]
       })
       .onGet("http://localhost:5000/peeps")
       .reply(200, {
         peeps: [
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() },
-          { _id: 3, _text: "Some text", _timeCreated: new Date() }
+          { id: 1, text: "Peep 1", timeCreated: new Date() },
+          { id: 2, text: "Peep 2", timeCreated: new Date() },
+          { id: 3, text: "Some text", timeCreated: new Date() }
         ]
       });
 

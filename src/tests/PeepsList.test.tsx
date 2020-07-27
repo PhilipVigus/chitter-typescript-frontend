@@ -13,8 +13,8 @@ describe("PeepsList", () => {
     render(
       <PeepsList
         peeps={[
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
+          { id: 1, text: "Peep 1", timeCreated: new Date() },
+          { id: 2, text: "Peep 2", timeCreated: new Date() }
         ]}
       />
     );
@@ -27,9 +27,9 @@ describe("PeepsList", () => {
     render(
       <PeepsList
         peeps={[
-          { _id: 1, _text: "Text 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Text 2", _timeCreated: new Date() },
-          { _id: 3, _text: "Text 3", _timeCreated: new Date() }
+          { id: 1, text: "Text 1", timeCreated: new Date() },
+          { id: 2, text: "Text 2", timeCreated: new Date() },
+          { id: 3, text: "Text 3", timeCreated: new Date() }
         ]}
       />
     );
