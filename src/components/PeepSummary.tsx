@@ -1,6 +1,6 @@
 import React from "react";
 
-export type PeepProps = {
+export type PeepSummaryProps = {
   id: number;
   userId: number;
   username: string;
@@ -8,11 +8,11 @@ export type PeepProps = {
   timeCreated: Date;
 };
 
-const Peep: React.FC<PeepProps> = ({
+const PeepSummary: React.FC<PeepSummaryProps> = ({
   username,
   text,
   timeCreated
-}: PeepProps) => {
+}: PeepSummaryProps) => {
   const getTimeCreatedString = () => {
     const date = new Date(timeCreated);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
@@ -30,4 +30,4 @@ const Peep: React.FC<PeepProps> = ({
   );
 };
 
-export default Peep;
+export default PeepSummary;

@@ -1,8 +1,8 @@
 import React from "react";
-import Peep, { PeepProps } from "./Peep";
+import PeepSummary, { PeepSummaryProps } from "./PeepSummary";
 
 type PeepsListProps = {
-  peeps: PeepProps[];
+  peeps: PeepSummaryProps[];
 };
 
 const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
@@ -10,7 +10,7 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
     <div>
       <div>Peeps List</div>
       {peeps
-        .sort((a: PeepProps, b: PeepProps) => {
+        .sort((a: PeepSummaryProps, b: PeepSummaryProps) => {
           if (new Date(a.timeCreated) < new Date(b.timeCreated)) {
             return 1;
           } else {
@@ -19,7 +19,7 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
         })
         .map((peep) => {
           return (
-            <Peep
+            <PeepSummary
               key={peep.id}
               id={peep.id}
               userId={peep.userId}
