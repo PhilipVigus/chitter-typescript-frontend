@@ -22,6 +22,8 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
             <Peep
               key={peep._id}
               _id={peep._id}
+              _userID={peep._userID}
+              _username={peep._username}
               _text={peep._text}
               _timeCreated={peep._timeCreated}
             />
