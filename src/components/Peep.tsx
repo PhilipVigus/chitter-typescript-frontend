@@ -27,7 +27,7 @@ const Peep: React.FC = () => {
           }
         })
         .then((result) => {
-          setPeep(result.data.peep);
+          setPeep(result.data);
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {

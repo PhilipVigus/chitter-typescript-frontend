@@ -10,7 +10,7 @@ export type PeepSummaryProps = {
 };
 
 const PeepSummary: React.FC<PeepSummaryProps> = ({
-  userId,
+  id,
   username,
   text,
   timeCreated
@@ -23,7 +23,7 @@ const PeepSummary: React.FC<PeepSummaryProps> = ({
   };
 
   return (
-    <Link to={`/peep/${userId}`}>
+    <Link to={`/peep/${id}`}>
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>

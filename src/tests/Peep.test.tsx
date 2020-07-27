@@ -12,7 +12,9 @@ describe("Peep", () => {
     const date = new Date(2020, 5, 3, 11, 5, 23);
 
     mock.onGet("http://localhost:5000/peeps/1").reply(200, {
-      peep: { username: "bob", text: "Peep 1", timeCreated: date }
+      username: "bob",
+      text: "Peep 1",
+      timeCreated: date
     });
   });
 
