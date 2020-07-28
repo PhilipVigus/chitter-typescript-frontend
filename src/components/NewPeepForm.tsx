@@ -1,18 +1,16 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import useUserState from "../hooks/useUserState";
 import { MainContext } from "../contexts/MainContext";
 
 const NewPeepForm: React.FC = () => {
   const [text, setText] = useState<string>("");
-  const { getUserId } = useUserState();
-  const [, , , setLastUpdateTime] = useContext(MainContext);
+  const [userState, , , setLastUpdateTime] = useContext(MainContext);
 
   const handlePeepSubmit = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     evt.preventDefault();
-    const data = { userId: getUserId(), text };
+    const data = { userId: userState.id, text };
 
     const sendNewPeep = async () => {
       axios

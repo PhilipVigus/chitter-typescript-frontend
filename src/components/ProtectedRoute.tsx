@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
-import useUserState from "../hooks/useUserState";
+import { MainContext } from "../contexts/MainContext";
 
 const ProtectedRoute: React.FC<RouteProps> = (props) => {
-  const { isLoggedIn } = useUserState();
+  const [userState] = useContext(MainContext);
 
-  if (isLoggedIn()) {
+  if (userState.id !== 0) {
     return <Route {...props} />;
   } else {
     const renderComponent = () => <Redirect to={{ pathname: "/login" }} />;
