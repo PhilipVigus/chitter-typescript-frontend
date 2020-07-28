@@ -1,8 +1,8 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import LoginForm from "../components/LoginForm";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import LoginForm from "../components/LoginForm";
 
 describe("LoginForm", () => {
   const mock = new MockAdapter(axios);
@@ -19,6 +19,7 @@ describe("LoginForm", () => {
 
   it("renders the text boxes", () => {
     render(<LoginForm />);
+
     expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/)).toBeInTheDocument();
   });

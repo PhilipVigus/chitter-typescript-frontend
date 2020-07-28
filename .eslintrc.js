@@ -22,6 +22,8 @@ module.exports = {
   },
   rules: {
     "no-underscore-dangle": "off",
-    "no-else-return": "off"
+    "no-else-return": "off",
+    "no-console": "off",
+    "react/jsx-one-expression-per-line": "off"
   }
 };

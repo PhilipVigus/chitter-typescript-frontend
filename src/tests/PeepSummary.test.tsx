@@ -10,7 +10,7 @@ describe("PeepSummary", () => {
     userId: 1,
     username: "bob",
     text: "Peep text",
-    timeCreated: date
+    timeCreated: date.toString()
   };
 
   it("renders the text", () => {

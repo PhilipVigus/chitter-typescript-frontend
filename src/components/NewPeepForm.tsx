@@ -15,7 +15,7 @@ const NewPeepForm: React.FC = () => {
     const sendNewPeep = async () => {
       axios
         .post("http://localhost:5000/peeps", data)
-        .then((response) => {
+        .then(() => {
           setLastUpdateTime(Date.now());
         })
         .catch((error) => console.log(error));
