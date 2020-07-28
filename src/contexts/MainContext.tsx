@@ -73,6 +73,7 @@ const MainContextProvider: React.FC<IProps> = ({
             console.log("Peeps get request cancelled");
           } else {
             console.log("Error getting peeps");
+            console.log(thrown.message);
           }
         });
     };
