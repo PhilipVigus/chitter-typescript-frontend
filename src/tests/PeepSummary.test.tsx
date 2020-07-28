@@ -12,7 +12,7 @@ describe("PeepSummary", () => {
     username: "bob",
     text: "Peep text",
     timeCreated: date.toString(),
-    numberOfComments: 5
+    comments: []
   };
 
   it("renders the text", () => {
@@ -25,7 +25,7 @@ describe("PeepSummary", () => {
           username={data.username}
           text={data.text}
           timeCreated={data.timeCreated}
-          numberOfComments={data.numberOfComments}
+          comments={data.comments}
         />
       </Router>
     );
@@ -43,7 +43,7 @@ describe("PeepSummary", () => {
           username={data.username}
           text={data.text}
           timeCreated={data.timeCreated}
-          numberOfComments={data.numberOfComments}
+          comments={data.comments}
         />
       </Router>
     );
@@ -60,11 +60,11 @@ describe("PeepSummary", () => {
           username={data.username}
           text={data.text}
           timeCreated={data.timeCreated}
-          numberOfComments={data.numberOfComments}
+          comments={data.comments}
         />
       </Router>
     );
 
-    expect(screen.getByText(/5 comments/)).toBeInTheDocument();
+    expect(screen.getByText(/0 comments/)).toBeInTheDocument();
   });
 });

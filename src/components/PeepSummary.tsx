@@ -7,7 +7,7 @@ const PeepSummary: React.FC<PeepProps> = ({
   username,
   text,
   timeCreated,
-  numberOfComments
+  comments
 }: PeepProps) => {
   const getTimeCreatedString = () => {
     const date = new Date(timeCreated);
@@ -21,7 +21,7 @@ const PeepSummary: React.FC<PeepProps> = ({
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
-        <div>{`${numberOfComments} comments`}</div>
+        <div>{`${comments.length} comments`}</div>
       </div>
     </Link>
   );

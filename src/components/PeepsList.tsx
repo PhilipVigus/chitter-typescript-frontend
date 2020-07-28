@@ -25,7 +25,7 @@ const PeepsList: React.FC = () => {
               username={peep.username}
               text={peep.text}
               timeCreated={peep.timeCreated}
-              numberOfComments={peep.numberOfComments}
+              comments={[]}
             />
           );
         })}

@@ -13,13 +13,22 @@ type IMainContext = [
   React.Dispatch<React.SetStateAction<number>>
 ];
 
+export type CommentProps = {
+  id: number;
+  userId: number;
+  peepId: number;
+  username: string;
+  text: string;
+  timeCreated: string;
+};
+
 export type PeepProps = {
   id: number;
   userId: number;
   username: string;
   text: string;
   timeCreated: string;
-  numberOfComments: number;
+  comments: Array<CommentProps>;
 };
 
 const MainContext = createContext<IMainContext>([
