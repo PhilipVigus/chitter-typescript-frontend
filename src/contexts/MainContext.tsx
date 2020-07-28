@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { PeepSummaryProps } from "../components/PeepSummary";
 
 type IUserState = {
   name?: string;
@@ -10,9 +9,27 @@ type IUserState = {
 type IMainContext = [
   IUserState,
   React.Dispatch<React.SetStateAction<IUserState>>,
-  PeepSummaryProps[],
+  PeepProps[],
   React.Dispatch<React.SetStateAction<number>>
 ];
+
+export type CommentProps = {
+  id: number;
+  userId: number;
+  peepId: number;
+  username: string;
+  text: string;
+  timeCreated: string;
+};
+
+export type PeepProps = {
+  id: number;
+  userId: number;
+  username: string;
+  text: string;
+  timeCreated: string;
+  comments: Array<CommentProps>;
+};
 
 const MainContext = createContext<IMainContext>([
   {},
@@ -31,7 +48,7 @@ const MainContextProvider: React.FC<IProps> = ({
   initialState
 }: IProps) => {
   const [userState, setUserState] = useState(initialState);
-  const [peeps, setPeeps] = useState<PeepSummaryProps[]>([]);
+  const [peeps, setPeeps] = useState<PeepProps[]>([]);
   const [lastUpdateTime, setLastUpdateTime] = useState<number>(0);
 
   useEffect(() => {

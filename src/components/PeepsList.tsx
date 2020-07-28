@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import PeepSummary, { PeepSummaryProps } from "./PeepSummary";
-import { MainContext } from "../contexts/MainContext";
+import PeepSummary from "./PeepSummary";
+import { MainContext, PeepProps } from "../contexts/MainContext";
 
 const PeepsList: React.FC = () => {
   const [, , newPeeps] = useContext(MainContext);
@@ -9,7 +9,7 @@ const PeepsList: React.FC = () => {
     <div>
       <div>Peeps List</div>
       {newPeeps
-        .sort((a: PeepSummaryProps, b: PeepSummaryProps) => {
+        .sort((a: PeepProps, b: PeepProps) => {
           if (new Date(a.timeCreated) < new Date(b.timeCreated)) {
             return 1;
           } else {
@@ -25,6 +25,7 @@ const PeepsList: React.FC = () => {
               username={peep.username}
               text={peep.text}
               timeCreated={peep.timeCreated}
+              comments={[]}
             />
           );
         })}
