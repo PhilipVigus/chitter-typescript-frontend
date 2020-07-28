@@ -55,6 +55,16 @@ const Peep: React.FC = () => {
         <div>{peep?.username}</div>
         <div>{peep?.text}</div>
         <div>{getTimeCreatedString(peep?.timeCreated)}</div>
+        <div>{peep?.comments.length}</div>
+        {peep?.comments.map((comment) => {
+          return (
+            <div key={comment.id}>
+              <div>{comment.text}</div>
+              <div>{comment.username}</div>
+              <div>{getTimeCreatedString(comment?.timeCreated)}</div>
+            </div>
+          );
+        })}
       </>
     );
   };
