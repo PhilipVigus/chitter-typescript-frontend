@@ -16,21 +16,24 @@ describe("MainContainer", () => {
           userId: 1,
           username: "bob",
           text: "Text 1",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         },
         {
           id: 2,
           userId: 1,
           username: "bob",
           text: "Text 2",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         },
         {
           id: 3,
           userId: 1,
           username: "bob",
           text: "Text 3",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         }
       ]
     });
@@ -89,8 +92,8 @@ describe("MainContainer", () => {
 
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
-        { id: 1, text: "Peep 1", timeCreated: new Date() },
-        { id: 2, text: "Peep 2", timeCreated: new Date() }
+        { id: 1, text: "Peep 1", timeCreated: new Date(), comments: [] },
+        { id: 2, text: "Peep 2", timeCreated: new Date(), comments: [] }
       ]
     });
 

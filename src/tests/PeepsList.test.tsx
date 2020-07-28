@@ -17,21 +17,24 @@ describe("PeepsList", () => {
           userId: 1,
           username: "bob",
           text: "Text 1",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         },
         {
           id: 2,
           userId: 1,
           username: "bob",
           text: "Text 2",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         },
         {
           id: 3,
           userId: 1,
           username: "bob",
           text: "Text 3",
-          timeCreated: new Date()
+          timeCreated: new Date(),
+          comments: []
         }
       ]
     });
