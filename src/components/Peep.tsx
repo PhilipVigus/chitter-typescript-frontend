@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MainContext, PeepProps } from "../contexts/MainContext";
+import NewCommentForm from "../components/NewCommentForm";
 
 const Peep: React.FC = () => {
   const [, , peeps] = useContext(MainContext);
@@ -33,6 +34,7 @@ const Peep: React.FC = () => {
       {peep?.id}
       <h2>Individual peep</h2>
       {getPeep()}
+      <NewCommentForm peepId={id} />
     </div>
   );
 };
