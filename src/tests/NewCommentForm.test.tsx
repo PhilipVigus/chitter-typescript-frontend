@@ -50,4 +50,22 @@ describe("NewPeepForm", () => {
       );
     });
   });
+
+  it("clears its contents when you click submit", async () => {
+    render(
+      <MainContextProvider initialState={{ name: "", id: 5 }}>
+        <NewCommentForm peepId={1} />
+      </MainContextProvider>
+    );
+
+    const textArea = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.change(textArea, { target: { value: "Some text" } });
+
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(textArea.value).toBe("");
+    });
+  });
 });
