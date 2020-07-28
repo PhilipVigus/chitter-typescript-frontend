@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import PeepSummary, { PeepSummaryProps } from "./PeepSummary";
+import { MainContext } from "../contexts/MainContext";
 
-type PeepsListProps = {
-  peeps: PeepSummaryProps[];
-};
+const PeepsList: React.FC = () => {
+  const [, , newPeeps] = useContext(MainContext);
 
-const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
   return (
     <div>
       <div>Peeps List</div>
-      {peeps
+      {newPeeps
         .sort((a: PeepSummaryProps, b: PeepSummaryProps) => {
           if (new Date(a.timeCreated) < new Date(b.timeCreated)) {
             return 1;

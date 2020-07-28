@@ -6,7 +6,7 @@ export type PeepSummaryProps = {
   userId: number;
   username: string;
   text: string;
-  timeCreated: Date;
+  timeCreated: string;
 };
 
 const PeepSummary: React.FC<PeepSummaryProps> = ({

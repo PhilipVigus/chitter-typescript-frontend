@@ -16,13 +16,13 @@ describe("NewPeepForm", () => {
   });
 
   it("renders static text", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
+    render(<NewPeepForm />);
 
     expect(await screen.findByText(/New Peep/)).toBeInTheDocument();
   });
 
   it("posts the peep when you click submit", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
+    render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
@@ -38,7 +38,7 @@ describe("NewPeepForm", () => {
   });
 
   it("clears its contents when you click submit", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
+    render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
@@ -48,21 +48,6 @@ describe("NewPeepForm", () => {
 
     await waitFor(() => {
       expect(textArea.value).toBe("");
-    });
-  });
-
-  it("calls the callback when you click submit", async () => {
-    const mockCallback = jest.fn();
-    render(<NewPeepForm newPeepCallback={mockCallback} />);
-
-    const textArea = screen.getByRole("textbox") as HTMLInputElement;
-    fireEvent.change(textArea, { target: { value: "Some text" } });
-
-    const submitButton = screen.getByRole("button", { name: "Submit" });
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockCallback).toHaveBeenCalledTimes(1);
     });
   });
 });

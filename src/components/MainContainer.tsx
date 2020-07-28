@@ -4,12 +4,12 @@ import PeepsContainer from "./PeepsContainer";
 import Peep from "./Peep";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
-import { UserContextProvider } from "../contexts/UserContext";
+import { MainContextProvider } from "../contexts/MainContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 const MainContainer: React.FC = () => {
   return (
-    <UserContextProvider initialState={{ name: "", id: 0 }}>
+    <MainContextProvider initialState={{ name: "", id: 0 }}>
       <Switch>
         <Route
           exact
@@ -23,7 +23,7 @@ const MainContainer: React.FC = () => {
         <ProtectedRoute exact path="/peeps" component={PeepsContainer} />
         <Route path="/peep/:id" component={Peep} />
       </Switch>
-    </UserContextProvider>
+    </MainContextProvider>
   );
 };
 
