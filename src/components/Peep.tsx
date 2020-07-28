@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MainContext } from "../contexts/MainContext";
-import { PeepSummaryProps } from "./PeepSummary";
+import { MainContext, PeepProps } from "../contexts/MainContext";
 
 const Peep: React.FC = () => {
   const [, , peeps] = useContext(MainContext);
   const { id } = useParams();
-  const [peep] = useState<PeepSummaryProps | undefined>();
+  const [peep] = useState<PeepProps | undefined>();
 
   const getTimeCreatedString = (timeCreated: string) => {
     const date = new Date(timeCreated);

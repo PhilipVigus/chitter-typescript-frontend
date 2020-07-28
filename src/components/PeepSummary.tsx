@@ -1,20 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PeepProps } from "../contexts/MainContext";
 
-export type PeepSummaryProps = {
-  id: number;
-  userId: number;
-  username: string;
-  text: string;
-  timeCreated: string;
-};
-
-const PeepSummary: React.FC<PeepSummaryProps> = ({
+const PeepSummary: React.FC<PeepProps> = ({
   id,
   username,
   text,
-  timeCreated
-}: PeepSummaryProps) => {
+  timeCreated,
+  numberOfComments
+}: PeepProps) => {
   const getTimeCreatedString = () => {
     const date = new Date(timeCreated);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
@@ -27,6 +21,7 @@ const PeepSummary: React.FC<PeepSummaryProps> = ({
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
+        <div>{`${numberOfComments} comments`}</div>
       </div>
     </Link>
   );
