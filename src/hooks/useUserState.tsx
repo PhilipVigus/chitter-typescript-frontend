@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { MainContext } from "../contexts/MainContext";
 
 const useUserState: () => {
   isLoggedIn: () => boolean;
   getUserId: () => number | undefined;
 } = () => {
-  const [userState] = useContext(UserContext);
+  const [userState] = useContext(MainContext);
 
   const isLoggedIn: () => boolean = () => {
     return userState.name !== "";

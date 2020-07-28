@@ -2,14 +2,14 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
-import { UserContext } from "../contexts/UserContext";
+import { MainContext } from "../contexts/MainContext";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const history = useHistory();
-  const [, setUserState] = useContext(UserContext);
+  const [, setUserState] = useContext(MainContext);
 
   const handleLoginSubmit = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>

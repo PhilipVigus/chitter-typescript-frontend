@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import useUserState from "../hooks/useUserState";
+import { MainContext } from "../contexts/MainContext";
 
-export type NewPeepFormProps = {
-  newPeepCallback: () => void;
-};
-
-const NewPeepForm: React.FC<NewPeepFormProps> = ({
-  newPeepCallback
-}: NewPeepFormProps) => {
+const NewPeepForm: React.FC = () => {
   const [text, setText] = useState<string>("");
   const { getUserId } = useUserState();
+  const [, , , setLastUpdateTime] = useContext(MainContext);
 
   const handlePeepSubmit = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -22,7 +18,7 @@ const NewPeepForm: React.FC<NewPeepFormProps> = ({
       axios
         .post("http://localhost:5000/peeps", data)
         .then((response) => {
-          newPeepCallback();
+          setLastUpdateTime(Date.now());
         })
         .catch((error) => console.log(error));
     };
