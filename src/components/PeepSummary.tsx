@@ -17,7 +17,7 @@ const PeepSummary: React.FC<PeepProps> = ({
   };
 
   return (
-    <Link to={`/peep/${id}`}>
+    <Link to={`/peeps/${id}`}>
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
