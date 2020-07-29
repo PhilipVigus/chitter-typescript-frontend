@@ -45,7 +45,7 @@ describe("LikesWidget", () => {
   describe("state changes", () => {
     it("toggles the likes button when it is clicked", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
           <LikesWidget likes={[]} liked={false} peepId={1} />
         </MainContextProvider>
       );
@@ -60,7 +60,7 @@ describe("LikesWidget", () => {
 
     it("increments the number when you click the button", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
           <LikesWidget likes={["bob"]} liked={false} peepId={1} />
         </MainContextProvider>
       );
@@ -72,7 +72,7 @@ describe("LikesWidget", () => {
 
     it("decrements the number when you click the button", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
           <LikesWidget likes={["bob"]} liked peepId={1} />
         </MainContextProvider>
       );
@@ -86,7 +86,7 @@ describe("LikesWidget", () => {
   describe("sending requests to the server", () => {
     it("posts the like when you click Like", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
           <LikesWidget likes={[]} liked={false} peepId={1} />
         </MainContextProvider>
       );
@@ -95,9 +95,7 @@ describe("LikesWidget", () => {
       fireEvent.click(likesButton);
 
       await waitFor(() => {
-        expect(mock.history.post[0].data).toBe(
-          JSON.stringify({ username: "bob" })
-        );
+        expect(mock.history.post[0].data).toBe(JSON.stringify({ userId: 1 }));
       });
     });
   });

@@ -26,7 +26,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
     evt.preventDefault();
 
     const addLike = async () => {
-      const data = { username: userState.name };
+      const data = { userId: userState.id };
       axios
         .post(`http://localhost:5000/peeps/${peepId}/likes`, data)
         .then(() => {
