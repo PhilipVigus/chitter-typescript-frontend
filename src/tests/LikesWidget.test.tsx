@@ -23,4 +23,13 @@ describe("LikesWidget", () => {
 
     expect(screen.getByRole("button", { name: "Unlike" })).toBeInTheDocument();
   });
+
+  it("increments the number when you click the button", () => {
+    render(<LikesWidget likes={["bob"]} />);
+
+    const likesButton = screen.getByRole("button", { name: "Like" });
+    fireEvent.click(likesButton);
+
+    expect(screen.getByText("2")).toBeInTheDocument();
+  });
 });

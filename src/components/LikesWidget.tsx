@@ -7,6 +7,7 @@ export type LikesWidgeProps = {
 
 const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
   const [likeButtonLabel, setLikeButtonLabel] = useState<string>("Like");
+  const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
 
   const handleLikeClick = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -14,6 +15,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
     evt.preventDefault();
     if (likeButtonLabel === "Like") {
       setLikeButtonLabel("Unlike");
+      setNumberOfLikes((likesNum) => likesNum + 1);
     } else {
       setLikeButtonLabel("Like");
     }
@@ -21,7 +23,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
 
   return (
     <div>
-      {likes.length}
+      {numberOfLikes}
       <input type="button" value={likeButtonLabel} onClick={handleLikeClick} />
     </div>
   );
