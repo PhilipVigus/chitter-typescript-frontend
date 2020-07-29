@@ -29,7 +29,8 @@ describe("Peep", () => {
               text: "A comment",
               timeCreated: commentCreationDate
             }
-          ]
+          ],
+          likes: []
         }
       ]
     });

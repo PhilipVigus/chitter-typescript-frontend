@@ -12,7 +12,8 @@ describe("PeepSummary", () => {
     username: "bob",
     text: "Peep text",
     timeCreated: date.toString(),
-    comments: []
+    comments: [],
+    likes: []
   };
 
   it("renders the text", () => {
@@ -26,6 +27,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -44,6 +46,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -61,6 +64,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -79,6 +83,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -97,6 +102,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );

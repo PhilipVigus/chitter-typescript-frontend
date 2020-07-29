@@ -22,6 +22,10 @@ export type CommentProps = {
   timeCreated: string;
 };
 
+export type LikesProps = {
+  username: string;
+};
+
 export type PeepProps = {
   id: number;
   userId: number;
@@ -29,6 +33,7 @@ export type PeepProps = {
   text: string;
   timeCreated: string;
   comments: Array<CommentProps>;
+  likes: Array<LikesProps>;
 };
 
 const MainContext = createContext<IMainContext>([
