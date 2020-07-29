@@ -18,6 +18,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
       setNumberOfLikes((likesNum) => likesNum + 1);
     } else {
       setLikeButtonLabel("Like");
+      setNumberOfLikes((likesNum) => likesNum - 1);
     }
   };
 
