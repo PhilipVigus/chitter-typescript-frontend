@@ -13,7 +13,7 @@ describe("LikesWidget", () => {
       peeps: []
     });
     mock.onPost("http://localhost:5000/peeps/1/likes").reply(200);
-    mock.onDelete("http://localhost:5000/peeps/1/likes/bob").reply(200);
+    mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(200);
   });
 
   afterAll(() => {
@@ -96,6 +96,21 @@ describe("LikesWidget", () => {
 
       await waitFor(() => {
         expect(mock.history.post[0].data).toBe(JSON.stringify({ userId: 1 }));
+      });
+    });
+
+    it("deletes the like when you click Like", async () => {
+      render(
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked peepId={1} />
+        </MainContextProvider>
+      );
+
+      const likesButton = screen.getByRole("button", { name: "Unlike" });
+      fireEvent.click(likesButton);
+
+      await waitFor(() => {
+        expect(mock.history.delete.length).toBe(1);
       });
     });
   });

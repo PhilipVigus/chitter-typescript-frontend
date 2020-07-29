@@ -41,7 +41,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
 
     const deleteLike = async () => {
       axios
-        .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.name}`)
+        .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.id}`)
         .then(() => {
           setLikeButtonLabel("Like");
           setNumberOfLikes((currentNumber) => currentNumber - 1);
