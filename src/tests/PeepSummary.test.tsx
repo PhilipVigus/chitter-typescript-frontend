@@ -72,7 +72,7 @@ describe("PeepSummary", () => {
     expect(screen.getByText(/0 comments/)).toBeInTheDocument();
   });
 
-  it("renders the likes button", () => {
+  it("renders the likes widget", () => {
     render(
       <Router>
         <PeepSummary
@@ -89,46 +89,6 @@ describe("PeepSummary", () => {
     );
 
     expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
-  });
-
-  it("renders the number of likes", () => {
-    render(
-      <Router>
-        <PeepSummary
-          key={data.id}
-          id={data.id}
-          userId={data.userId}
-          username={data.username}
-          text={data.text}
-          timeCreated={data.timeCreated}
-          comments={data.comments}
-          likes={data.likes}
-        />
-      </Router>
-    );
-
     expect(screen.getByText("1")).toBeInTheDocument();
-  });
-
-  it("toggles the likes button when it is clicked", () => {
-    render(
-      <Router>
-        <PeepSummary
-          key={data.id}
-          id={data.id}
-          userId={data.userId}
-          username={data.username}
-          text={data.text}
-          timeCreated={data.timeCreated}
-          comments={data.comments}
-          likes={data.likes}
-        />
-      </Router>
-    );
-
-    const likesButton = screen.getByRole("button", { name: "Like" });
-    fireEvent.click(likesButton);
-
-    expect(screen.getByRole("button", { name: "Unlike" })).toBeInTheDocument();
   });
 });
