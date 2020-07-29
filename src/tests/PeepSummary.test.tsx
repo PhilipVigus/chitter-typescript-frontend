@@ -67,4 +67,22 @@ describe("PeepSummary", () => {
 
     expect(screen.getByText(/0 comments/)).toBeInTheDocument();
   });
+
+  it("renders the likes button", () => {
+    render(
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+          comments={data.comments}
+        />
+      </Router>
+    );
+
+    expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+  });
 });

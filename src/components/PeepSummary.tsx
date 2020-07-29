@@ -22,6 +22,9 @@ const PeepSummary: React.FC<PeepProps> = ({
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
         <div>{`${comments.length} comments`}</div>
+        <div>
+          <input type="button" value="Like" />
+        </div>
       </div>
     </Link>
   );
