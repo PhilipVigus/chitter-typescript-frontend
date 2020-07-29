@@ -26,6 +26,7 @@ const PeepsList: React.FC = () => {
               text={peep.text}
               timeCreated={peep.timeCreated}
               comments={peep.comments}
+              likes={peep.likes}
             />
           );
         })}

@@ -7,7 +7,8 @@ const PeepSummary: React.FC<PeepProps> = ({
   username,
   text,
   timeCreated,
-  comments
+  comments,
+  likes
 }: PeepProps) => {
   const [likeButtonLabel, setLikeButtonLabel] = useState<string>("Like");
 
@@ -36,6 +37,7 @@ const PeepSummary: React.FC<PeepProps> = ({
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
         <div>{`${comments.length} comments`}</div>
         <div>
+          {likes.length}
           <input
             type="button"
             value={likeButtonLabel}

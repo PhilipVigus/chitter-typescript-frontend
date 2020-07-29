@@ -13,7 +13,7 @@ describe("PeepSummary", () => {
     text: "Peep text",
     timeCreated: date.toString(),
     comments: [],
-    likes: []
+    likes: ["bob"]
   };
 
   it("renders the text", () => {
@@ -89,6 +89,25 @@ describe("PeepSummary", () => {
     );
 
     expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+  });
+
+  it("renders the number of likes", () => {
+    render(
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+          comments={data.comments}
+          likes={data.likes}
+        />
+      </Router>
+    );
+
+    expect(screen.getByText("1")).toBeInTheDocument();
   });
 
   it("toggles the likes button when it is clicked", () => {

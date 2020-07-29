@@ -22,9 +22,7 @@ export type CommentProps = {
   timeCreated: string;
 };
 
-export type LikesProps = {
-  username: string;
-};
+export type LikesProps = string;
 
 export type PeepProps = {
   id: number;
