@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { PeepProps } from "../contexts/MainContext";
+import LikesWidget from "./LikesWidget";
 
 const PeepSummary: React.FC<PeepProps> = ({
   id,
@@ -10,24 +11,11 @@ const PeepSummary: React.FC<PeepProps> = ({
   comments,
   likes
 }: PeepProps) => {
-  const [likeButtonLabel, setLikeButtonLabel] = useState<string>("Like");
-
   const getTimeCreatedString = () => {
     const date = new Date(timeCreated);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
       date.getMonth() + 1
     }-${date.getFullYear()}`;
-  };
-
-  const handleLikeClick = (
-    evt: React.MouseEvent<HTMLInputElement, MouseEvent>
-  ) => {
-    evt.preventDefault();
-    if (likeButtonLabel === "Like") {
-      setLikeButtonLabel("Unlike");
-    } else {
-      setLikeButtonLabel("Like");
-    }
   };
 
   return (
@@ -36,14 +24,7 @@ const PeepSummary: React.FC<PeepProps> = ({
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
         <div>{`${comments.length} comments`}</div>
-        <div>
-          {likes.length}
-          <input
-            type="button"
-            value={likeButtonLabel}
-            onClick={handleLikeClick}
-          />
-        </div>
+        <LikesWidget likes={likes} />
       </div>
     </Link>
   );
