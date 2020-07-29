@@ -3,11 +3,17 @@ import { LikesProps } from "../contexts/MainContext";
 
 export type LikesWidgeProps = {
   likes: Array<LikesProps>;
+  liked: boolean;
 };
 
-const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [likeButtonLabel, setLikeButtonLabel] = useState<string>("Like");
+const LikesWidget: React.FC<LikesWidgeProps> = ({
+  likes,
+  liked
+}: LikesWidgeProps) => {
+  const [isLiked, setIsLiked] = useState<boolean>(liked);
+  const [likeButtonLabel, setLikeButtonLabel] = useState<string>(
+    liked ? "Unlike" : "Like"
+  );
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
 
   const handleLikeClick = (
@@ -17,13 +23,13 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({ likes }: LikesWidgeProps) => {
 
     if (isLiked) {
       setLikeButtonLabel("Like");
-      setNumberOfLikes((likesNum) => likesNum - 1);
+      setNumberOfLikes((currentNumber) => currentNumber - 1);
     } else {
       setLikeButtonLabel("Unlike");
-      setNumberOfLikes((likesNum) => likesNum + 1);
+      setNumberOfLikes((currentNumber) => currentNumber + 1);
     }
 
-    setIsLiked((liked) => !liked);
+    setIsLiked((currentLiked) => !currentLiked);
   };
 
   return (
