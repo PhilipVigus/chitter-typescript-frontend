@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { PeepProps } from "../contexts/MainContext";
+import LikesWidget from "./LikesWidget";
 
 const PeepSummary: React.FC<PeepProps> = ({
   id,
   username,
   text,
   timeCreated,
-  comments
+  comments,
+  likes
 }: PeepProps) => {
   const getTimeCreatedString = () => {
     const date = new Date(timeCreated);
@@ -22,6 +24,7 @@ const PeepSummary: React.FC<PeepProps> = ({
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
         <div>{`${comments.length} comments`}</div>
+        <LikesWidget likes={likes} liked={false} peepId={id} />
       </div>
     </Link>
   );

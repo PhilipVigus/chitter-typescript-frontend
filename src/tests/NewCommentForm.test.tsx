@@ -12,8 +12,22 @@ describe("NewPeepForm", () => {
     mock.onPost("http://localhost:5000/peeps/1/comments").reply(200);
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
-        { id: 1, username: "bob", text: "Peep 1", timeCreated: Date.now() },
-        { id: 2, username: "bob", text: "Peep 2", timeCreated: Date.now() }
+        {
+          id: 1,
+          username: "bob",
+          text: "Peep 1",
+          timeCreated: Date.now(),
+          comments: [],
+          likes: []
+        },
+        {
+          id: 2,
+          username: "bob",
+          text: "Peep 2",
+          timeCreated: Date.now(),
+          comments: [],
+          likes: []
+        }
       ]
     });
   });

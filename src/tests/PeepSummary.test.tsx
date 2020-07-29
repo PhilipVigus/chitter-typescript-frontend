@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import PeepSummary from "../components/PeepSummary";
 import { PeepProps } from "../contexts/MainContext";
@@ -12,7 +12,8 @@ describe("PeepSummary", () => {
     username: "bob",
     text: "Peep text",
     timeCreated: date.toString(),
-    comments: []
+    comments: [],
+    likes: ["bob"]
   };
 
   it("renders the text", () => {
@@ -26,6 +27,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -44,6 +46,7 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
@@ -61,10 +64,31 @@ describe("PeepSummary", () => {
           text={data.text}
           timeCreated={data.timeCreated}
           comments={data.comments}
+          likes={data.likes}
         />
       </Router>
     );
 
     expect(screen.getByText(/0 comments/)).toBeInTheDocument();
+  });
+
+  it("renders the likes widget", () => {
+    render(
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+          comments={data.comments}
+          likes={data.likes}
+        />
+      </Router>
+    );
+
+    expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+    expect(screen.getByText("1")).toBeInTheDocument();
   });
 });

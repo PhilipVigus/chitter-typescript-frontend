@@ -29,7 +29,8 @@ describe("Peep", () => {
               text: "A comment",
               timeCreated: commentCreationDate
             }
-          ]
+          ],
+          likes: ["bob"]
         }
       ]
     });
@@ -81,5 +82,22 @@ describe("Peep", () => {
     expect(await screen.findByText(/A comment/)).toBeInTheDocument();
     expect(await screen.findByText(/steve/)).toBeInTheDocument();
     expect(await screen.findByText(/11:5:23 on 3-7-2020/)).toBeInTheDocument();
+  });
+
+  it("renders the likes widget", async () => {
+    render(
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/peeps/1"]}>
+          <Route path="/peeps/:id">
+            <Peep />
+          </Route>
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Like" })
+    ).toBeInTheDocument();
+    expect(await screen.findByText("1")).toBeInTheDocument();
   });
 });

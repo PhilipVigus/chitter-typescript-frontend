@@ -18,7 +18,8 @@ describe("PeepsList", () => {
           username: "bob",
           text: "Text 1",
           timeCreated: new Date(),
-          comments: []
+          comments: [],
+          likes: []
         },
         {
           id: 2,
@@ -26,7 +27,8 @@ describe("PeepsList", () => {
           username: "bob",
           text: "Text 2",
           timeCreated: new Date(),
-          comments: []
+          comments: [],
+          likes: []
         },
         {
           id: 3,
@@ -34,7 +36,8 @@ describe("PeepsList", () => {
           username: "bob",
           text: "Text 3",
           timeCreated: new Date(),
-          comments: []
+          comments: [],
+          likes: []
         }
       ]
     });
