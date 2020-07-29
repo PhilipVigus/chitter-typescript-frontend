@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MainContext, CommentProps, PeepProps } from "../contexts/MainContext";
+import {
+  MainContext,
+  CommentProps,
+  PeepProps,
+  LikesProps
+} from "../contexts/MainContext";
 import NewCommentForm from "./NewCommentForm";
+import LikesWidget from "./LikesWidget";
 
 const Peep: React.FC = () => {
   const [, , peeps] = useContext(MainContext);
@@ -16,6 +22,7 @@ const Peep: React.FC = () => {
       text: string;
       timeCreated: string;
       comments: CommentProps[];
+      likes: LikesProps[];
     } | null => {
       const idAsNumber = parseInt(id, 10);
       for (let i = 0; i < peeps.length; i += 1) {
@@ -28,7 +35,8 @@ const Peep: React.FC = () => {
             username: foundPeep.username,
             text: foundPeep.text,
             timeCreated: foundPeep.timeCreated,
-            comments: foundPeep.comments
+            comments: foundPeep.comments,
+            likes: foundPeep.likes
           });
         }
       }
@@ -55,6 +63,11 @@ const Peep: React.FC = () => {
         <div>{peep?.username}</div>
         <div>{peep?.text}</div>
         <div>{getTimeCreatedString(peep?.timeCreated)}</div>
+        <LikesWidget
+          likes={peep?.likes as string[]}
+          liked={false}
+          peepId={peep?.id as number}
+        />
         {peep?.comments.map((comment) => {
           return (
             <div key={comment.id}>
