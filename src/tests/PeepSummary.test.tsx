@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import PeepSummary from "../components/PeepSummary";
 import { PeepProps } from "../contexts/MainContext";
@@ -84,5 +84,26 @@ describe("PeepSummary", () => {
     );
 
     expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+  });
+
+  it("toggles the likes button when it is clicked", () => {
+    render(
+      <Router>
+        <PeepSummary
+          key={data.id}
+          id={data.id}
+          userId={data.userId}
+          username={data.username}
+          text={data.text}
+          timeCreated={data.timeCreated}
+          comments={data.comments}
+        />
+      </Router>
+    );
+
+    const likesButton = screen.getByRole("button", { name: "Like" });
+    fireEvent.click(likesButton);
+
+    expect(screen.getByRole("button", { name: "Unlike" })).toBeInTheDocument();
   });
 });
