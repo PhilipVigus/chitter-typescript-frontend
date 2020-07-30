@@ -40,18 +40,6 @@ describe("Peep", () => {
     mock.restore();
   });
 
-  it("renders the title", async () => {
-    render(
-      <Router initialEntries={["/peeps/1"]}>
-        <Route path="/peeps/:id">
-          <Peep />
-        </Route>
-      </Router>
-    );
-
-    expect(await screen.findByText(/Individual peep/)).toBeInTheDocument();
-  });
-
   it("renders the peep details", async () => {
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>

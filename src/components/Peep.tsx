@@ -8,6 +8,7 @@ import {
 } from "../contexts/MainContext";
 import NewCommentForm from "./NewCommentForm";
 import LikesWidget from "./LikesWidget";
+import "./Peep.css";
 
 const Peep: React.FC = () => {
   const [userState, , peeps] = useContext(MainContext);
@@ -67,32 +68,43 @@ const Peep: React.FC = () => {
 
   const formatPeep = () => {
     return (
-      <>
-        <div>{peep?.username}</div>
-        <div>{peep?.text}</div>
-        <div>{getTimeCreatedString(peep?.timeCreated)}</div>
-        <LikesWidget
-          likes={peep?.likes as string[]}
-          liked={isLiked() as boolean}
-          peepId={peep?.id as number}
-          disabled={userIsAuthor()}
-        />
+      <div className="peep-container">
+        <div className="peep-container__header">
+          <div>@{peep?.username}</div>
+          <div className="peep-container__time-created">
+            {getTimeCreatedString(peep?.timeCreated)}
+          </div>
+        </div>
+        <div className="peep-container__text">{peep?.text}</div>
+        <div className="peep-container__statuses">
+          <div className="peep-container__status">
+            <LikesWidget
+              likes={peep?.likes as string[]}
+              liked={isLiked() as boolean}
+              peepId={peep?.id as number}
+              disabled={userIsAuthor()}
+            />
+          </div>
+        </div>
         {peep?.comments.map((comment) => {
           return (
-            <div key={comment.id}>
-              <div>{comment.text}</div>
-              <div>{comment.username}</div>
-              <div>{getTimeCreatedString(comment?.timeCreated)}</div>
+            <div key={comment.id} className="comment-container">
+              <div className="comment-container__header">
+                <div>@{comment.username}</div>
+                <div className="comment-container__time-created">
+                  {getTimeCreatedString(comment?.timeCreated)}
+                </div>
+              </div>
+              <div className="comment-container__text">{comment.text}</div>
             </div>
           );
         })}
-      </>
+      </div>
     );
   };
 
   return (
     <div>
-      <h2>Individual peep</h2>
       {peep && formatPeep()}
       <NewCommentForm peepId={id} />
     </div>
