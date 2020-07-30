@@ -1,3 +1,11 @@
+:root {
+  --lighest-colour: #f1f4f5;
+  --darkest-colour: #475c7b;
+  --dark-highlight: #995f53;
+  --light-highlight: #c59b51;
+  --mid-tone: #92a7b4;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,4 +25,11 @@ html {
 body {
   font-family: "Noto Sans JP", sans-serif;
   font-size: 1.6rem;
+}
+
+header {
+  background-color: var(--darkest-colour);
+  color: var(--lighest-colour);
+  font-family: "Roboto", sans-serif;
+  font-size: 5rem;
 }
