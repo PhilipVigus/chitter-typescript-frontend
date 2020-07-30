@@ -1,4 +1,4 @@
-.login-form__container {
+.signup-form__container {
   border: 1px solid var(--mid-tone);
   border-radius: 2px;
   margin: 20px auto;
@@ -6,29 +6,29 @@
   width: 30%;
 }
 
-.login-form__header {
+.signup-form__header {
   background-color: var(--darkest-colour);
   color: var(--lighest-colour);
   font-size: 2rem;
   padding: 10px;
 }
 
-.login-form__text-container {
+.signup-form__text-container {
   padding: 10px;
 }
 
-.login-form__label {
+.signup-form__label {
   width: 100%;
 }
 
-.login-form__input {
+.signup-form__input {
   width: 100%;
   font-size: 1.6rem;
   margin-top: 5px;
   padding: 5px;
 }
 
-.login-form__button {
+.signup-form__button {
   background-color: var(--dark-highlight);
   color: var(--lighest-colour);
   font-size: 1.6rem;
@@ -37,10 +37,10 @@
   width: 100%;
 }
 
-.login-form__button:hover {
+.signup-form__button:hover {
   background-color: var(--light-highlight);
 }
 
-.login-form__error-message {
+.signup-form__error-message {
   margin-top: 5px;
 }
