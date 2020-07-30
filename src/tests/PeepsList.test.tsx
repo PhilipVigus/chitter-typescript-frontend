@@ -46,11 +46,6 @@ describe("PeepsList", () => {
   afterAll(() => {
     mock.restore();
   });
-  it("renders static text", async () => {
-    render(<PeepsList />);
-
-    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
-  });
 
   it("renders list of peeps in reverse chronological order", async () => {
     render(

@@ -7,7 +7,6 @@ const PeepsList: React.FC = () => {
 
   return (
     <div>
-      <div>Peeps List</div>
       {newPeeps
         .sort((a: PeepProps, b: PeepProps) => {
           if (new Date(a.timeCreated) < new Date(b.timeCreated)) {

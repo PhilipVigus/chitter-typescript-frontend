@@ -53,16 +53,6 @@ describe("PeepsContainer", () => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(
-      <Router>
-        <PeepsContainer />
-      </Router>
-    );
-
-    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
-  });
-
   it("renders list of peeps", async () => {
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>
