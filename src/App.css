@@ -56,3 +56,8 @@ button {
   cursor: pointer;
   outline: inherit;
 }
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
