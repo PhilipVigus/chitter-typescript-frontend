@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import PeepSummary from "../components/PeepSummary";
 import { PeepProps } from "../contexts/MainContext";
