@@ -13,7 +13,7 @@ describe("LikesWidget", () => {
       peeps: []
     });
     mock.onPost("http://localhost:5000/peeps/1/likes").reply(200);
-    mock.onDelete("http://localhost:5000/peeps/1/likes/bob").reply(200);
+    mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(200);
   });
 
   afterAll(() => {
@@ -22,13 +22,15 @@ describe("LikesWidget", () => {
 
   describe("initial rendering", () => {
     it("renders the like button when initialised with liked=false", () => {
-      render(<LikesWidget likes={[]} liked={false} peepId={1} />);
+      render(
+        <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
+      );
 
       expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
     });
 
     it("renders the unlike button when initialised with liked=true", () => {
-      render(<LikesWidget likes={[]} liked peepId={1} />);
+      render(<LikesWidget likes={[]} liked peepId={1} disabled={false} />);
 
       expect(
         screen.getByRole("button", { name: "Unlike" })
@@ -36,17 +38,30 @@ describe("LikesWidget", () => {
     });
 
     it("renders the number of likes", () => {
-      render(<LikesWidget likes={["bob"]} liked={false} peepId={1} />);
+      render(
+        <LikesWidget
+          likes={["bob"]}
+          liked={false}
+          peepId={1}
+          disabled={false}
+        />
+      );
 
       expect(screen.getByText("1")).toBeInTheDocument();
+    });
+
+    it("renders the button as disabled when set to disabled", () => {
+      render(<LikesWidget likes={["bob"]} liked={false} peepId={1} disabled />);
+
+      expect(screen.getByRole("button", { name: "Like" })).toBeDisabled();
     });
   });
 
   describe("state changes", () => {
     it("toggles the likes button when it is clicked", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
-          <LikesWidget likes={[]} liked={false} peepId={1} />
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
         </MainContextProvider>
       );
 
@@ -60,8 +75,13 @@ describe("LikesWidget", () => {
 
     it("increments the number when you click the button", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
-          <LikesWidget likes={["bob"]} liked={false} peepId={1} />
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget
+            likes={["bob"]}
+            liked={false}
+            peepId={1}
+            disabled={false}
+          />
         </MainContextProvider>
       );
       const likesButton = screen.getByRole("button", { name: "Like" });
@@ -72,8 +92,8 @@ describe("LikesWidget", () => {
 
     it("decrements the number when you click the button", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
-          <LikesWidget likes={["bob"]} liked peepId={1} />
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={["bob"]} liked peepId={1} disabled={false} />
         </MainContextProvider>
       );
       const likesButton = screen.getByRole("button", { name: "Unlike" });
@@ -86,8 +106,8 @@ describe("LikesWidget", () => {
   describe("sending requests to the server", () => {
     it("posts the like when you click Like", async () => {
       render(
-        <MainContextProvider initialState={{ name: "bob", id: 0 }}>
-          <LikesWidget likes={[]} liked={false} peepId={1} />
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
         </MainContextProvider>
       );
 
@@ -95,9 +115,22 @@ describe("LikesWidget", () => {
       fireEvent.click(likesButton);
 
       await waitFor(() => {
-        expect(mock.history.post[0].data).toBe(
-          JSON.stringify({ username: "bob" })
-        );
+        expect(mock.history.post[0].data).toBe(JSON.stringify({ userId: 1 }));
+      });
+    });
+
+    it("deletes the like when you click Like", async () => {
+      render(
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked peepId={1} disabled={false} />
+        </MainContextProvider>
+      );
+
+      const likesButton = screen.getByRole("button", { name: "Unlike" });
+      fireEvent.click(likesButton);
+
+      await waitFor(() => {
+        expect(mock.history.delete.length).toBe(1);
       });
     });
   });

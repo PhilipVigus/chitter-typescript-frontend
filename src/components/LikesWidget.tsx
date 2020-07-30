@@ -6,19 +6,21 @@ export type LikesWidgeProps = {
   likes: Array<LikesProps>;
   liked: boolean;
   peepId: number;
+  disabled: boolean;
 };
 
 const LikesWidget: React.FC<LikesWidgeProps> = ({
   likes,
   liked,
-  peepId
+  peepId,
+  disabled
 }: LikesWidgeProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(liked);
   const [likeButtonLabel, setLikeButtonLabel] = useState<string>(
     liked ? "Unlike" : "Like"
   );
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
-  const [userState] = useContext(MainContext);
+  const [userState, , , setLastUpdateTime] = useContext(MainContext);
 
   const handleLikeClick = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -26,13 +28,14 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
     evt.preventDefault();
 
     const addLike = async () => {
-      const data = { username: userState.name };
+      const data = { userId: userState.id };
       axios
         .post(`http://localhost:5000/peeps/${peepId}/likes`, data)
         .then(() => {
           setLikeButtonLabel("Unlike");
           setNumberOfLikes((currentNumber) => currentNumber + 1);
           setIsLiked((currentLiked) => !currentLiked);
+          setLastUpdateTime(Date.now());
         })
         .catch((error) => {
           console.log(error);
@@ -41,11 +44,12 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
 
     const deleteLike = async () => {
       axios
-        .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.name}`)
+        .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.id}`)
         .then(() => {
           setLikeButtonLabel("Like");
           setNumberOfLikes((currentNumber) => currentNumber - 1);
           setIsLiked((currentLiked) => !currentLiked);
+          setLastUpdateTime(Date.now());
         })
         .catch((error) => {
           console.log(error);
@@ -62,7 +66,12 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
   return (
     <div>
       {numberOfLikes}
-      <input type="button" value={likeButtonLabel} onClick={handleLikeClick} />
+      <input
+        type="button"
+        value={likeButtonLabel}
+        disabled={disabled}
+        onClick={handleLikeClick}
+      />
     </div>
   );
 };
