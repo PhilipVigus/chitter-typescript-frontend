@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MainContext, PeepProps } from "../contexts/MainContext";
 import LikesWidget from "./LikesWidget";
+import "./PeepSummary.css";
 
 const PeepSummary: React.FC<PeepProps> = ({
   id,
@@ -30,9 +31,14 @@ const PeepSummary: React.FC<PeepProps> = ({
 
   return (
     <Link to={`/peeps/${id}`}>
-      <div>
-        <span>{username} - </span>
-        <span>{text}</span> - <span>{getTimeCreatedString()}</span>
+      <div className="peep-summary-container">
+        <div className="peep-summary__header">
+          <div>@{username}</div>
+          <div className="peep-summary__time-created">
+            {getTimeCreatedString()}
+          </div>
+        </div>
+        <div>{text}</div>
         <div>{`${comments.length} comments`}</div>
         <LikesWidget
           likes={likes}

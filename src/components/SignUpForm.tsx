@@ -35,7 +35,7 @@ const SignUpForm: React.FC = () => {
 
   return (
     <div className="signup-form__container">
-      <div className="signup-form__header">Sign up</div>
+      <h2 className="signup-form__header">Sign up</h2>
       <div className="signup-form__text-container">
         <div>
           <label className="signup-form__label" htmlFor="username">

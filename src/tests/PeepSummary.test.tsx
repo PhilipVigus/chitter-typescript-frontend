@@ -32,7 +32,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByText(/bob -/)).toBeInTheDocument();
+    expect(screen.getByText(/@bob/)).toBeInTheDocument();
   });
 
   it("renders the time created", () => {

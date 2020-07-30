@@ -1,0 +1,18 @@
+.peep-summary-container {
+  border: 1px solid var(--mid-tone);
+  border-radius: 2px;
+  margin: 10px 0;
+}
+
+.peep-summary__header {
+  background-color: var(--darkest-colour);
+  color: var(--lighest-colour);
+  display: flex;
+  font-size: 1.6rem;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.peep-summary__time-created {
+  font-size: 1.6rem;
+}

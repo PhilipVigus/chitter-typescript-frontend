@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login-form__container">
-      <div className="login-form__header">Log in</div>
+      <h2 className="login-form__header">Log in</h2>
       <div className="login-form__text-container">
         <div>
           <label className="login-form__label" htmlFor="username">
