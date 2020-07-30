@@ -61,7 +61,12 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
 
   return (
     <div>
-      <button type="button" disabled={disabled} onClick={handleLikeClick}>
+      <button
+        className="likes-widget__button"
+        type="button"
+        disabled={disabled}
+        onClick={handleLikeClick}
+      >
         {isLiked ? (
           <i className="fas fa-heart likes-widget__icon" />
         ) : (

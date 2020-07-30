@@ -126,7 +126,9 @@ describe("PeepsContainer", () => {
     const textArea = (await screen.findByRole("textbox")) as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = await screen.findByRole("button", { name: "Submit" });
+    const submitButton = await screen.findByRole("button", {
+      name: "Tell the world"
+    });
     fireEvent.click(submitButton);
 
     expect(await screen.findByText(/Some text/)).toBeInTheDocument();

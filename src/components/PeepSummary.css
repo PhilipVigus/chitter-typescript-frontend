@@ -14,30 +14,25 @@
 }
 
 .peep-summary-container__time-created {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 .peep-summary-container__text {
-  margin: 10px;
+  margin: 5px 0px 0px 10px;
 }
 
 .peep-summary-container__statuses {
   display: flex;
   justify-content: space-around;
   align-content: center;
-  margin: 10px 0;
+  margin: 0px 0 10px 0;
 }
 
 .peep-summary-container__status {
   border-radius: 5px;
-  padding: 10px;
-}
-@media (hover: hover) {
-  .peep-summary-container__status:hover {
-    background-color: var(--light-highlight);
-  }
+  padding-top: 10px;
 }
 
 .peep-summary-container__icon {
-  margin: 0 8px;
+  margin: 0 5px;
 }
