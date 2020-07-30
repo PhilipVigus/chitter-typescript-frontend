@@ -67,4 +67,60 @@ describe("PeepsList", () => {
     expect(peeps[1].innerHTML).toBe("Text 2");
     expect(peeps[2].innerHTML).toBe("Text 1");
   });
+
+  it("shows a like button for a peep the user hasn't liked", async () => {
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
+      peeps: [
+        {
+          id: 1,
+          userId: 1,
+          username: "steve",
+          text: "Text 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        }
+      ]
+    });
+
+    render(
+      <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <Router>
+          <PeepsList />
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Like" })
+    ).toBeInTheDocument();
+  });
+
+  it("shows a unlike button for a peep the user has liked", async () => {
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
+      peeps: [
+        {
+          id: 1,
+          userId: 1,
+          username: "steve",
+          text: "Text 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: ["bob"]
+        }
+      ]
+    });
+
+    render(
+      <MainContextProvider initialState={{ name: "bob", id: 0 }}>
+        <Router>
+          <PeepsList />
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Unlike" })
+    ).toBeInTheDocument();
+  });
 });
