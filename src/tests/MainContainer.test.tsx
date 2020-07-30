@@ -167,4 +167,61 @@ describe("MainContainer", () => {
       await screen.findByRole("heading", { name: "Log in" })
     ).toBeInTheDocument();
   });
+
+  it("renders an individual peep when you click on it in the peeps list", async () => {
+    mock
+      .onPost("http://localhost:5000/users")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock
+      .onPost("http://localhost:5000/sessions")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
+      peeps: [
+        {
+          id: 1,
+          text: "Peep 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        }
+      ]
+    });
+
+    render(
+      <Router initialEntries={["/signup"]} initialIndex={0}>
+        <MainContainer />
+      </Router>
+    );
+
+    let usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "bob" } });
+    let passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Log in" })
+    ).toBeInTheDocument();
+
+    usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "bob" } });
+    passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    const peepSummary = await screen.findByText("Peep 1");
+    fireEvent.click(peepSummary);
+
+    expect(await screen.findByText("Individual peep")).toBeInTheDocument();
+    expect(await screen.findByText("Peep 1")).toBeInTheDocument();
+  });
 });
