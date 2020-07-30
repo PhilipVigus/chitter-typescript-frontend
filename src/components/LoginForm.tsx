@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
 import { MainContext } from "../contexts/MainContext";
+import "./LoginForm.css";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -46,36 +47,46 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Log in</h2>
-      <div>
-        <label htmlFor="username">
-          Username
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
+    <div className="login-form__container">
+      <div className="login-form__header">Log in</div>
+      <div className="login-form__text-container">
+        <div>
+          <label className="login-form__label" htmlFor="username">
+            Username
+            <div>
+              <input
+                className="login-form__input"
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </label>
+        </div>
+        <div>
+          <label className="login-form__label" htmlFor="password">
+            Password
+            <input
+              className="login-form__input"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <button
+            className="login-form__button"
+            type="submit"
+            onClick={handleLoginSubmit}
+          >
+            Submit
+          </button>
+        </div>
+        <div>{errorMessage}</div>
       </div>
-      <div>
-        <label htmlFor="password">
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          Password
-        </label>
-      </div>
-      <div>
-        <button type="submit" onClick={handleLoginSubmit}>
-          Submit
-        </button>
-      </div>
-      <div>{errorMessage}</div>
     </div>
   );
 };
