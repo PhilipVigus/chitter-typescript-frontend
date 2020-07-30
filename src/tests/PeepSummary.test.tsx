@@ -69,7 +69,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByText(/0 comments/)).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 
   it("renders the likes widget", () => {

@@ -4,7 +4,7 @@
   margin: 10px 0;
 }
 
-.peep-summary__header {
+.peep-summary-container__header {
   background-color: var(--darkest-colour);
   color: var(--lighest-colour);
   display: flex;
@@ -13,6 +13,17 @@
   padding: 10px;
 }
 
-.peep-summary__time-created {
+.peep-summary-container__time-created {
   font-size: 1.6rem;
+}
+
+.peep-summary-container__statuses {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  margin: 10px 0;
+}
+
+.peep-summary-container__icon {
+  margin: 0 8px;
 }
