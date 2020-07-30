@@ -8,6 +8,7 @@
 .login-form__header {
   background-color: var(--darkest-colour);
   color: var(--lighest-colour);
+  font-size: 2rem;
   padding: 10px;
 }
 
@@ -40,5 +41,5 @@
 }
 
 .login-form__error-message {
-  margin: 10px 10px 10px 0;
+  margin-top: 5px;
 }

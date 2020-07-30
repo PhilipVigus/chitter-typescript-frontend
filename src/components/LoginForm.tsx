@@ -85,7 +85,9 @@ const LoginForm: React.FC = () => {
             Submit
           </button>
         </div>
-        <div className="login-form__error-message">{errorMessage}</div>
+        {errorMessage !== "" && (
+          <div className="login-form__error-message">{errorMessage}</div>
+        )}
       </div>
     </div>
   );
