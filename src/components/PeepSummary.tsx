@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MainContext, PeepProps } from "../contexts/MainContext";
 import LikesWidget from "./LikesWidget";
+import "./PeepSummary.css";
 
 const PeepSummary: React.FC<PeepProps> = ({
   id,
@@ -30,16 +31,28 @@ const PeepSummary: React.FC<PeepProps> = ({
 
   return (
     <Link to={`/peeps/${id}`}>
-      <div>
-        <span>{username} - </span>
-        <span>{text}</span> - <span>{getTimeCreatedString()}</span>
-        <div>{`${comments.length} comments`}</div>
-        <LikesWidget
-          likes={likes}
-          liked={isLiked()}
-          peepId={id}
-          disabled={userIsAuthor()}
-        />
+      <div className="peep-summary-container">
+        <div className="peep-summary-container__header">
+          <div>@{username}</div>
+          <div className="peep-summary-container__time-created">
+            {getTimeCreatedString()}
+          </div>
+        </div>
+        <div className="peep-summary-container__text">{text}</div>
+        <div className="peep-summary-container__statuses">
+          <div className="peep-summary-container__status">
+            <i className="far fa-comment-alt peep-summary-container__icon " />
+            {comments.length}
+          </div>
+          <div className="peep-summary-container__status">
+            <LikesWidget
+              likes={likes}
+              liked={isLiked()}
+              peepId={id}
+              disabled={userIsAuthor()}
+            />
+          </div>
+        </div>
       </div>
     </Link>
   );

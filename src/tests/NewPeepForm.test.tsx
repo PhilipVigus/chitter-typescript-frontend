@@ -15,19 +15,13 @@ describe("NewPeepForm", () => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(<NewPeepForm />);
-
-    expect(await screen.findByText(/New Peep/)).toBeInTheDocument();
-  });
-
   it("posts the peep when you click submit", async () => {
     render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = screen.getByRole("button", { name: "Submit" });
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -43,7 +37,7 @@ describe("NewPeepForm", () => {
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = screen.getByRole("button", { name: "Submit" });
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
     fireEvent.click(submitButton);
 
     await waitFor(() => {

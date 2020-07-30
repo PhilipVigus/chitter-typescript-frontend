@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import PeepSummary from "../components/PeepSummary";
 import { PeepProps } from "../contexts/MainContext";
@@ -32,7 +32,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByText(/bob -/)).toBeInTheDocument();
+    expect(screen.getByText(/@bob/)).toBeInTheDocument();
   });
 
   it("renders the time created", () => {
@@ -69,7 +69,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByText(/0 comments/)).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 
   it("renders the likes widget", () => {
@@ -88,7 +88,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 });

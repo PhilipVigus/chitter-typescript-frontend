@@ -53,16 +53,6 @@ describe("PeepsContainer", () => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(
-      <Router>
-        <PeepsContainer />
-      </Router>
-    );
-
-    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
-  });
-
   it("renders list of peeps", async () => {
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>
@@ -136,7 +126,9 @@ describe("PeepsContainer", () => {
     const textArea = (await screen.findByRole("textbox")) as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = await screen.findByRole("button", { name: "Submit" });
+    const submitButton = await screen.findByRole("button", {
+      name: "Tell the world"
+    });
     fireEvent.click(submitButton);
 
     expect(await screen.findByText(/Some text/)).toBeInTheDocument();

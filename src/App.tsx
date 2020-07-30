@@ -6,7 +6,7 @@ import MainContainer from "./components/MainContainer";
 function App(): JSX.Element {
   return (
     <div>
-      <div>Chitter</div>
+      <header>Chitter</header>
       <Router>
         <MainContainer />
       </Router>

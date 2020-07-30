@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { MainContext } from "../contexts/MainContext";
+import "./NewPeepForm.css";
 
 const NewPeepForm: React.FC = () => {
   const [text, setText] = useState<string>("");
@@ -26,11 +27,21 @@ const NewPeepForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>New Peep</div>
-      <textarea value={text} onChange={(e) => setText(e.target.value)} />
+    <div className="new-peep-form-container">
+      <textarea
+        className="new-peep-form-container__input"
+        rows={6}
+        placeholder="What's on your mind?"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
       <div>
-        <input type="button" value="Submit" onClick={handlePeepSubmit} />
+        <input
+          className="new-peep-form__button"
+          type="button"
+          value="Tell the world"
+          onClick={handlePeepSubmit}
+        />
       </div>
     </div>
   );

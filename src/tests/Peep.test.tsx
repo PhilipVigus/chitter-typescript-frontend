@@ -40,18 +40,6 @@ describe("Peep", () => {
     mock.restore();
   });
 
-  it("renders the title", async () => {
-    render(
-      <Router initialEntries={["/peeps/1"]}>
-        <Route path="/peeps/:id">
-          <Peep />
-        </Route>
-      </Router>
-    );
-
-    expect(await screen.findByText(/Individual peep/)).toBeInTheDocument();
-  });
-
   it("renders the peep details", async () => {
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>
@@ -95,23 +83,7 @@ describe("Peep", () => {
       </MainContextProvider>
     );
 
-    expect(
-      await screen.findByRole("button", { name: "Like" })
-    ).toBeInTheDocument();
+    expect(await screen.findByRole("button")).toBeInTheDocument();
     expect(await screen.findByText("1")).toBeInTheDocument();
-  });
-
-  it("disables the likes widget if the peep is yours", async () => {
-    render(
-      <MainContextProvider initialState={{ name: "steve", id: 0 }}>
-        <Router initialEntries={["/peeps/1"]}>
-          <Route path="/peeps/:id">
-            <Peep />
-          </Route>
-        </Router>
-      </MainContextProvider>
-    );
-
-    expect(await screen.findByRole("button", { name: "Like" })).toBeDisabled();
   });
 });

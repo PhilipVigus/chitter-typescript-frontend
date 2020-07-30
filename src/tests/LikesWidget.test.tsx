@@ -26,15 +26,13 @@ describe("LikesWidget", () => {
         <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
       );
 
-      expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+      expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
     it("renders the unlike button when initialised with liked=true", () => {
       render(<LikesWidget likes={[]} liked peepId={1} disabled={false} />);
 
-      expect(
-        screen.getByRole("button", { name: "Unlike" })
-      ).toBeInTheDocument();
+      expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
     it("renders the number of likes", () => {
@@ -53,7 +51,7 @@ describe("LikesWidget", () => {
     it("renders the button as disabled when set to disabled", () => {
       render(<LikesWidget likes={["bob"]} liked={false} peepId={1} disabled />);
 
-      expect(screen.getByRole("button", { name: "Like" })).toBeDisabled();
+      expect(screen.getByRole("button")).toBeDisabled();
     });
   });
 
@@ -61,16 +59,19 @@ describe("LikesWidget", () => {
     it("toggles the likes button when it is clicked", async () => {
       render(
         <MainContextProvider initialState={{ name: "bob", id: 1 }}>
-          <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
+          <LikesWidget
+            likes={["steve", "eric"]}
+            liked={false}
+            peepId={1}
+            disabled={false}
+          />
         </MainContextProvider>
       );
 
-      const likesButton = screen.getByRole("button", { name: "Like" });
+      const likesButton = screen.getByRole("button");
       fireEvent.click(likesButton);
 
-      expect(
-        await screen.findByRole("button", { name: "Unlike" })
-      ).toBeInTheDocument();
+      expect(await screen.findByText("3")).toBeInTheDocument();
     });
 
     it("increments the number when you click the button", async () => {
@@ -84,7 +85,7 @@ describe("LikesWidget", () => {
           />
         </MainContextProvider>
       );
-      const likesButton = screen.getByRole("button", { name: "Like" });
+      const likesButton = screen.getByRole("button");
       fireEvent.click(likesButton);
 
       expect(await screen.findByText("2")).toBeInTheDocument();
@@ -96,7 +97,7 @@ describe("LikesWidget", () => {
           <LikesWidget likes={["bob"]} liked peepId={1} disabled={false} />
         </MainContextProvider>
       );
-      const likesButton = screen.getByRole("button", { name: "Unlike" });
+      const likesButton = screen.getByRole("button");
       fireEvent.click(likesButton);
 
       expect(await screen.findByText("0")).toBeInTheDocument();
@@ -111,7 +112,7 @@ describe("LikesWidget", () => {
         </MainContextProvider>
       );
 
-      const likesButton = screen.getByRole("button", { name: "Like" });
+      const likesButton = screen.getByRole("button");
       fireEvent.click(likesButton);
 
       await waitFor(() => {
@@ -126,7 +127,7 @@ describe("LikesWidget", () => {
         </MainContextProvider>
       );
 
-      const likesButton = screen.getByRole("button", { name: "Unlike" });
+      const likesButton = screen.getByRole("button");
       fireEvent.click(likesButton);
 
       await waitFor(() => {

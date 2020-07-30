@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
@@ -12,14 +13,21 @@ describe("LoginForm", () => {
   });
 
   it("renders the username textbox", () => {
-    render(<LoginForm />);
+    render(
+      <Router>
+        <LoginForm />
+      </Router>
+    );
 
     expect(screen.getByRole("heading", { name: "Log in" })).toBeInTheDocument();
   });
 
   it("renders the text boxes", () => {
-    render(<LoginForm />);
-
+    render(
+      <Router>
+        <LoginForm />
+      </Router>
+    );
     expect(screen.getByLabelText(/Username/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/)).toBeInTheDocument();
   });
@@ -29,7 +37,11 @@ describe("LoginForm", () => {
       .onPost("http://localhost:5000/sessions")
       .reply(422, { error: "Incorrect login details" });
 
-    render(<LoginForm />);
+    render(
+      <Router>
+        <LoginForm />
+      </Router>
+    );
 
     const usernameField = screen.getByRole("textbox", {
       name: "Username"

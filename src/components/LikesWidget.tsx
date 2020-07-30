@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { LikesProps, MainContext } from "../contexts/MainContext";
+import "./LikesWidget.css";
 
 export type LikesWidgeProps = {
   likes: Array<LikesProps>;
@@ -16,14 +17,11 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
   disabled
 }: LikesWidgeProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(liked);
-  const [likeButtonLabel, setLikeButtonLabel] = useState<string>(
-    liked ? "Unlike" : "Like"
-  );
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
   const [userState, , , setLastUpdateTime] = useContext(MainContext);
 
   const handleLikeClick = (
-    evt: React.MouseEvent<HTMLInputElement, MouseEvent>
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     evt.preventDefault();
 
@@ -32,7 +30,6 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
       axios
         .post(`http://localhost:5000/peeps/${peepId}/likes`, data)
         .then(() => {
-          setLikeButtonLabel("Unlike");
           setNumberOfLikes((currentNumber) => currentNumber + 1);
           setIsLiked((currentLiked) => !currentLiked);
           setLastUpdateTime(Date.now());
@@ -46,7 +43,6 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
       axios
         .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.id}`)
         .then(() => {
-          setLikeButtonLabel("Like");
           setNumberOfLikes((currentNumber) => currentNumber - 1);
           setIsLiked((currentLiked) => !currentLiked);
           setLastUpdateTime(Date.now());
@@ -65,13 +61,19 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
 
   return (
     <div>
-      {numberOfLikes}
-      <input
+      <button
+        className="likes-widget__button"
         type="button"
-        value={likeButtonLabel}
         disabled={disabled}
         onClick={handleLikeClick}
-      />
+      >
+        {isLiked ? (
+          <i className="fas fa-heart likes-widget__icon" />
+        ) : (
+          <i className="far fa-heart likes-widget__icon" />
+        )}
+        {numberOfLikes}
+      </button>
     </div>
   );
 };
