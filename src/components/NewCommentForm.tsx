@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { MainContext } from "../contexts/MainContext";
+import "./NewCommentForm.css";
 
 interface CommentProps {
   peepId: number;
@@ -30,11 +31,21 @@ const NewCommentForm: React.FC<CommentProps> = ({ peepId }: CommentProps) => {
   };
 
   return (
-    <div>
-      <div>New Comment</div>
-      <textarea value={text} onChange={(e) => setText(e.target.value)} />
+    <div className="new-comment-form-container">
+      <textarea
+        className="new-comment-form-container__input"
+        rows={3}
+        placeholder="Reply"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
       <div>
-        <input type="button" value="Submit" onClick={handleCommentSubmit} />
+        <input
+          className="new-comment-form__button"
+          type="button"
+          value="Submit"
+          onClick={handleCommentSubmit}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+.new-comment-form-container {
+  margin: 5px auto 5px auto;
+  min-width: 350px;
+  width: 50%;
+}
+
+.new-comment-form-container__input {
+  border: 1px solid var(--mid-tone);
+  font-size: 1.8rem;
+  padding: 10px;
+  resize: none;
+  margin: 0;
+  width: 100%;
+}
+
+.new-comment-form__button {
+  background-color: var(--dark-highlight);
+  color: var(--lighest-colour);
+  font-size: 1.6rem;
+  padding: 10px;
+  width: 100%;
+}
+
+@media (hover: hover) {
+  .new-comment-form__button:hover {
+    background-color: var(--light-highlight);
+  }
+}
