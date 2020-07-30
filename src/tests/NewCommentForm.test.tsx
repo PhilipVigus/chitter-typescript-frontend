@@ -36,15 +36,6 @@ describe("NewPeepForm", () => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(
-      <MainContextProvider initialState={{ name: "", id: 5 }}>
-        <NewCommentForm peepId={1} />
-      </MainContextProvider>
-    );
-    expect(await screen.findByText(/New Comment/)).toBeInTheDocument();
-  });
-
   it("posts the comment when you click submit", async () => {
     render(
       <MainContextProvider initialState={{ name: "", id: 5 }}>

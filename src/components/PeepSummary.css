@@ -6,7 +6,7 @@
 
 .peep-summary-container__header {
   background-color: var(--darkest-colour);
-  color: var(--lighest-colour);
+  color: var(--lightest-colour);
   display: flex;
   font-size: 1.6rem;
   justify-content: space-between;

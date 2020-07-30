@@ -1,5 +1,5 @@
 :root {
-  --lighest-colour: #f1f4f5;
+  --lightest-colour: #f1f4f5;
   --darkest-colour: #475c7b;
   --dark-highlight: #995f53;
   --light-highlight: #c59b51;
@@ -43,7 +43,7 @@ body {
 
 header {
   background-color: var(--darkest-colour);
-  color: var(--lighest-colour);
+  color: var(--lightest-colour);
   font-family: "Roboto", sans-serif;
   font-size: 5rem;
 }

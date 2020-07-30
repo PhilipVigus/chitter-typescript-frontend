@@ -63,7 +63,11 @@ describe("SignupForm", () => {
     mock
       .onPost("http://localhost:5000/users")
       .reply(422, { error: "Username already taken" });
-    render(<SignUpForm />);
+    render(
+      <Router>
+        <SignUpForm />
+      </Router>
+    );
 
     const usernameField = screen.getByRole("textbox", {
       name: "Username"

@@ -1,14 +1,14 @@
 .signup-form__container {
   border: 1px solid var(--mid-tone);
   border-radius: 2px;
-  margin: 20px auto;
+  margin: 20px auto 5px auto;
   min-width: 350px;
   width: 30%;
 }
 
 .signup-form__header {
   background-color: var(--darkest-colour);
-  color: var(--lighest-colour);
+  color: var(--lightest-colour);
   font-size: 2rem;
   padding: 10px;
 }
@@ -30,7 +30,7 @@
 
 .signup-form__button {
   background-color: var(--dark-highlight);
-  color: var(--lighest-colour);
+  color: var(--lightest-colour);
   font-size: 1.6rem;
   margin-top: 10px;
   padding: 10px;
@@ -45,4 +45,15 @@
 
 .signup-form__error-message {
   margin-top: 5px;
+}
+
+.signup-form__login-message {
+  margin: auto;
+  min-width: 350px;
+  width: 30%;
+}
+
+.signup-form__link {
+  color: var(--darkest-colour);
+  text-decoration: underline;
 }
