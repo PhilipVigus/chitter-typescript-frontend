@@ -17,7 +17,7 @@ describe("Peep", () => {
       peeps: [
         {
           id: 1,
-          username: "bob",
+          username: "steve",
           text: "Peep 1",
           timeCreated: peepCreationDate,
           comments: [
@@ -25,7 +25,7 @@ describe("Peep", () => {
               id: 1,
               userId: 3,
               peepId: 4,
-              username: "steve",
+              username: "bob",
               text: "A comment",
               timeCreated: commentCreationDate
             }
@@ -63,7 +63,7 @@ describe("Peep", () => {
       </MainContextProvider>
     );
 
-    expect(await screen.findByText(/bob/)).toBeInTheDocument();
+    expect(await screen.findByText(/steve/)).toBeInTheDocument();
     expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
     expect(await screen.findByText(/11:5:23 on 3-6-2020/)).toBeInTheDocument();
   });
@@ -99,5 +99,19 @@ describe("Peep", () => {
       await screen.findByRole("button", { name: "Like" })
     ).toBeInTheDocument();
     expect(await screen.findByText("1")).toBeInTheDocument();
+  });
+
+  it("disables the likes widget if the peep is yours", async () => {
+    render(
+      <MainContextProvider initialState={{ name: "steve", id: 0 }}>
+        <Router initialEntries={["/peeps/1"]}>
+          <Route path="/peeps/:id">
+            <Peep />
+          </Route>
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(await screen.findByRole("button", { name: "Like" })).toBeDisabled();
   });
 });

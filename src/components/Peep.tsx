@@ -61,6 +61,10 @@ const Peep: React.FC = () => {
     return peep?.likes.includes(userState.name as string);
   };
 
+  const userIsAuthor = () => {
+    return userState.name === peep?.username;
+  };
+
   const formatPeep = () => {
     return (
       <>
@@ -71,6 +75,7 @@ const Peep: React.FC = () => {
           likes={peep?.likes as string[]}
           liked={isLiked() as boolean}
           peepId={peep?.id as number}
+          disabled={userIsAuthor()}
         />
         {peep?.comments.map((comment) => {
           return (

@@ -24,13 +24,22 @@ const PeepSummary: React.FC<PeepProps> = ({
     return likes.includes(userState.name as string);
   };
 
+  const userIsAuthor = () => {
+    return userState.name === username;
+  };
+
   return (
     <Link to={`/peeps/${id}`}>
       <div>
         <span>{username} - </span>
         <span>{text}</span> - <span>{getTimeCreatedString()}</span>
         <div>{`${comments.length} comments`}</div>
-        <LikesWidget likes={likes} liked={isLiked()} peepId={id} />
+        <LikesWidget
+          likes={likes}
+          liked={isLiked()}
+          peepId={id}
+          disabled={userIsAuthor()}
+        />
       </div>
     </Link>
   );

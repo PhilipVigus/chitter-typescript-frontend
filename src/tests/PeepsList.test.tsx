@@ -123,4 +123,30 @@ describe("PeepsList", () => {
       await screen.findByRole("button", { name: "Unlike" })
     ).toBeInTheDocument();
   });
+
+  it("disables the like button if the peep is yours", async () => {
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
+      peeps: [
+        {
+          id: 1,
+          userId: 1,
+          username: "steve",
+          text: "Text 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: ["bob"]
+        }
+      ]
+    });
+
+    render(
+      <MainContextProvider initialState={{ name: "steve", id: 0 }}>
+        <Router>
+          <PeepsList />
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(await screen.findByRole("button", { name: "Like" })).toBeDisabled();
+  });
 });

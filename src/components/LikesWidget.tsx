@@ -6,12 +6,14 @@ export type LikesWidgeProps = {
   likes: Array<LikesProps>;
   liked: boolean;
   peepId: number;
+  disabled: boolean;
 };
 
 const LikesWidget: React.FC<LikesWidgeProps> = ({
   likes,
   liked,
-  peepId
+  peepId,
+  disabled
 }: LikesWidgeProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(liked);
   const [likeButtonLabel, setLikeButtonLabel] = useState<string>(
@@ -64,7 +66,12 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
   return (
     <div>
       {numberOfLikes}
-      <input type="button" value={likeButtonLabel} onClick={handleLikeClick} />
+      <input
+        type="button"
+        value={likeButtonLabel}
+        disabled={disabled}
+        onClick={handleLikeClick}
+      />
     </div>
   );
 };
