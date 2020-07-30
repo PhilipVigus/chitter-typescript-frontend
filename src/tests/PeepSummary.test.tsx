@@ -88,7 +88,7 @@ describe("PeepSummary", () => {
       </Router>
     );
 
-    expect(screen.getByRole("button", { name: "Like" })).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 });
