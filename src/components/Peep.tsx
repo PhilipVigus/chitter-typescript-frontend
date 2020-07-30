@@ -10,7 +10,7 @@ import NewCommentForm from "./NewCommentForm";
 import LikesWidget from "./LikesWidget";
 
 const Peep: React.FC = () => {
-  const [, , peeps] = useContext(MainContext);
+  const [userState, , peeps] = useContext(MainContext);
   const { id } = useParams();
   const [peep, setPeep] = useState<PeepProps | null>();
 
@@ -57,6 +57,10 @@ const Peep: React.FC = () => {
     }-${date.getFullYear()}`;
   };
 
+  const isLiked = () => {
+    return peep?.likes.includes(userState.name as string);
+  };
+
   const formatPeep = () => {
     return (
       <>
@@ -65,7 +69,7 @@ const Peep: React.FC = () => {
         <div>{getTimeCreatedString(peep?.timeCreated)}</div>
         <LikesWidget
           likes={peep?.likes as string[]}
-          liked={false}
+          liked={isLiked() as boolean}
           peepId={peep?.id as number}
         />
         {peep?.comments.map((comment) => {

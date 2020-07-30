@@ -18,7 +18,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
     liked ? "Unlike" : "Like"
   );
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
-  const [userState] = useContext(MainContext);
+  const [userState, , , setLastUpdateTime] = useContext(MainContext);
 
   const handleLikeClick = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
@@ -33,6 +33,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
           setLikeButtonLabel("Unlike");
           setNumberOfLikes((currentNumber) => currentNumber + 1);
           setIsLiked((currentLiked) => !currentLiked);
+          setLastUpdateTime(Date.now());
         })
         .catch((error) => {
           console.log(error);
@@ -46,6 +47,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
           setLikeButtonLabel("Like");
           setNumberOfLikes((currentNumber) => currentNumber - 1);
           setIsLiked((currentLiked) => !currentLiked);
+          setLastUpdateTime(Date.now());
         })
         .catch((error) => {
           console.log(error);
