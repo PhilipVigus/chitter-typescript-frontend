@@ -155,4 +155,16 @@ describe("MainContainer", () => {
       await screen.findByRole("heading", { name: "Log in" })
     ).toBeInTheDocument();
   });
+
+  it("redirects to login if you try to get an individual peep without logging", async () => {
+    render(
+      <Router initialEntries={["/peeps/1"]} initialIndex={0}>
+        <MainContainer />
+      </Router>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Log in" })
+    ).toBeInTheDocument();
+  });
 });
