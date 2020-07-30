@@ -17,11 +17,25 @@
   font-size: 1.6rem;
 }
 
+.peep-summary-container__text {
+  margin: 10px;
+}
+
 .peep-summary-container__statuses {
   display: flex;
   justify-content: space-around;
   align-content: center;
   margin: 10px 0;
+}
+
+.peep-summary-container__status {
+  border-radius: 5px;
+  padding: 10px;
+}
+@media (hover: hover) {
+  .peep-summary-container__status:hover {
+    background-color: var(--light-highlight);
+  }
 }
 
 .peep-summary-container__icon {

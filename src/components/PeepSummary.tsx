@@ -38,18 +38,20 @@ const PeepSummary: React.FC<PeepProps> = ({
             {getTimeCreatedString()}
           </div>
         </div>
-        <div>{text}</div>
+        <div className="peep-summary-container__text">{text}</div>
         <div className="peep-summary-container__statuses">
-          <div>
+          <div className="peep-summary-container__status">
             <i className="far fa-comment-alt peep-summary-container__icon " />
             {comments.length}
           </div>
-          <LikesWidget
-            likes={likes}
-            liked={isLiked()}
-            peepId={id}
-            disabled={userIsAuthor()}
-          />
+          <div className="peep-summary-container__status">
+            <LikesWidget
+              likes={likes}
+              liked={isLiked()}
+              peepId={id}
+              disabled={userIsAuthor()}
+            />
+          </div>
         </div>
       </div>
     </Link>
