@@ -133,15 +133,4 @@ describe("PeepsContainer", () => {
 
     expect(await screen.findByText(/Some text/)).toBeInTheDocument();
   });
-
-  it("shows the currently logged in username", async () => {
-    render(
-      <MainContextProvider initialState={{ name: "phil", id: 3 }}>
-        <Router>
-          <PeepsContainer />
-        </Router>
-      </MainContextProvider>
-    );
-    expect(await screen.findByText(/phil/)).toBeInTheDocument();
-  });
 });

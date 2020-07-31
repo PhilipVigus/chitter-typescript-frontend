@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
 import { MainContext } from "../contexts/MainContext";
-import "./LoginForm.css";
+import "./AuthorisationForm.css";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -48,15 +48,15 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      <div className="login-form__container">
-        <h2 className="login-form__header">Log in</h2>
-        <div className="login-form__text-container">
+      <div className="authorisation-form__container">
+        <h2 className="authorisation-form__header">Log in</h2>
+        <div className="authorisation-form__text-container">
           <div>
-            <label className="login-form__label" htmlFor="username">
+            <label className="authorisation-form__label" htmlFor="username">
               Username
               <div>
                 <input
-                  className="login-form__input"
+                  className="authorisation-form__input"
                   type="text"
                   id="username"
                   value={username}
@@ -66,10 +66,10 @@ const LoginForm: React.FC = () => {
             </label>
           </div>
           <div>
-            <label className="login-form__label" htmlFor="password">
+            <label className="authorisation-form__label" htmlFor="password">
               Password
               <input
-                className="login-form__input"
+                className="authorisation-form__input"
                 type="password"
                 id="password"
                 value={password}
@@ -79,7 +79,7 @@ const LoginForm: React.FC = () => {
           </div>
           <div>
             <button
-              className="login-form__button"
+              className="authorisation-form__button"
               type="submit"
               onClick={handleLoginSubmit}
             >
@@ -87,12 +87,14 @@ const LoginForm: React.FC = () => {
             </button>
           </div>
           {errorMessage !== "" && (
-            <div className="login-form__error-message">{errorMessage}</div>
+            <div className="authorisation-form__error-message">
+              {errorMessage}
+            </div>
           )}
         </div>
       </div>
-      <div className="login-form__signup-message">
-        <Link className="login-form__link" to="/signup">
+      <div className="authorisation-form__link-message">
+        <Link className="authorisation-form__link" to="/signup">
           Sign up
         </Link>{" "}
         if you don&apos;t have an account
