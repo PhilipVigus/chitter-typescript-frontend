@@ -6,10 +6,10 @@ import "./AuthorisationForm.css";
 const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const history = useHistory();
 
-  const isUsernameValid = (): boolean => {
+  const usernameValidationErrors = (): string[] => {
     const errors: string[] = [];
     if (username.length < 4) {
       errors.push("Username must be at least 4 characters long");
@@ -21,15 +21,10 @@ const SignUpForm: React.FC = () => {
       );
     }
 
-    if (errors.length > 0) {
-      setErrorMessage(errors.join("/n"));
-      return false;
-    } else {
-      return true;
-    }
+    return errors;
   };
 
-  const isPasswordValid = (): boolean => {
+  const passwordValidationErrors = (): string[] => {
     const errors: string[] = [];
     if (password.length < 8) {
       errors.push("Password must be at least 8 characters long");
@@ -53,12 +48,7 @@ const SignUpForm: React.FC = () => {
       errors.push("Password must contain at least one lowercase letter");
     }
 
-    if (errors.length > 0) {
-      setErrorMessage(errorMessage + errors.join("/n"));
-      return false;
-    } else {
-      return true;
-    }
+    return errors;
   };
 
   const handleSignupSubmit = (
@@ -75,16 +65,23 @@ const SignUpForm: React.FC = () => {
         })
         .catch((error) => {
           if (error.response.status === 422) {
-            setErrorMessage(error.response.data.error);
+            setErrorMessages([...errorMessages, error.response.data.error]);
           } else {
             console.log(error);
           }
         });
     };
 
-    if (isUsernameValid() && isPasswordValid()) {
-      setErrorMessage("");
+    setErrorMessages([]);
+    const validationErrors = [
+      ...usernameValidationErrors(),
+      ...passwordValidationErrors()
+    ];
+
+    if (validationErrors.length === 0) {
       sendSignup();
+    } else {
+      setErrorMessages(validationErrors);
     }
   };
 
@@ -126,9 +123,11 @@ const SignUpForm: React.FC = () => {
               Submit
             </button>
           </div>
-          {errorMessage !== "" && (
+          {errorMessages.length > 0 && (
             <div className="authorisation-form__error-message">
-              {errorMessage}
+              {errorMessages.map((error) => (
+                <div key={error}>{error}</div>
+              ))}
             </div>
           )}
         </div>
