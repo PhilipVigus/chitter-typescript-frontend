@@ -41,6 +41,10 @@ const SignUpForm: React.FC = () => {
       );
     }
 
+    if (!password.match(/[0-9]+/)) {
+      errors.push("Password must contain at least one number");
+    }
+
     if (errors.length > 0) {
       setErrorMessage(errorMessage + errors.join("/n"));
       return false;
