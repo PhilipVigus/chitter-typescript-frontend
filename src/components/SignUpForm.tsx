@@ -9,10 +9,24 @@ const SignUpForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const history = useHistory();
 
+  const isUsernameInvalid = (): boolean => {
+    if (username.length < 4) {
+      setErrorMessage("Username must be at least 4 characters long");
+      return true;
+    }
+
+    return false;
+  };
+
   const handleSignupSubmit = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     evt.preventDefault();
+
+    if (isUsernameInvalid()) {
+      return;
+    }
+
     const data = { username, password };
 
     const sendSignup = async () => {

@@ -61,7 +61,7 @@ describe("MainContainer", () => {
   it("renders renders login when you successfully sign up", async () => {
     mock
       .onPost("http://localhost:5000/users")
-      .reply(200, { id: 1, username: "bob" });
+      .reply(200, { id: 1, username: "steve" });
 
     render(
       <Router initialEntries={["/signup"]} initialIndex={0}>
@@ -73,7 +73,7 @@ describe("MainContainer", () => {
       name: "Username"
     }) as HTMLInputElement;
 
-    fireEvent.change(usernameField, { target: { value: "bob" } });
+    fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
     fireEvent.change(passwordField, { target: { value: "1234" } });
@@ -122,7 +122,7 @@ describe("MainContainer", () => {
       name: "Username"
     }) as HTMLInputElement;
 
-    fireEvent.change(usernameField, { target: { value: "bob" } });
+    fireEvent.change(usernameField, { target: { value: "steve" } });
     let passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
     fireEvent.change(passwordField, { target: { value: "1234" } });
@@ -136,7 +136,7 @@ describe("MainContainer", () => {
       name: "Username"
     }) as HTMLInputElement;
 
-    fireEvent.change(usernameField, { target: { value: "bob" } });
+    fireEvent.change(usernameField, { target: { value: "steve" } });
     passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
     fireEvent.change(passwordField, { target: { value: "1234" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
