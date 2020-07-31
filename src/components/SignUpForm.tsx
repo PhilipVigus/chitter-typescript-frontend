@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
-import "./SignUpForm.css";
+import "./AuthorisationForm.css";
 
 const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -35,14 +35,14 @@ const SignUpForm: React.FC = () => {
 
   return (
     <>
-      <div className="signup-form__container">
-        <h2 className="signup-form__header">Sign up</h2>
-        <div className="signup-form__text-container">
+      <div className="authorisation-form__container">
+        <h2 className="authorisation-form__header">Sign up</h2>
+        <div className="authorisation-form__text-container">
           <div>
-            <label className="signup-form__label" htmlFor="username">
+            <label className="authorisation-form__label" htmlFor="username">
               Username
               <input
-                className="signup-form__input"
+                className="authorisation-form__input"
                 type="text"
                 id="username"
                 value={username}
@@ -51,10 +51,10 @@ const SignUpForm: React.FC = () => {
             </label>
           </div>
           <div>
-            <label className="signup-form__label" htmlFor="password">
+            <label className="authorisation-form__label" htmlFor="password">
               Password
               <input
-                className="signup-form__input"
+                className="authorisation-form__input"
                 type="password"
                 id="password"
                 value={password}
@@ -64,7 +64,7 @@ const SignUpForm: React.FC = () => {
           </div>
           <div>
             <button
-              className="signup-form__button"
+              className="authorisation-form__button"
               type="submit"
               onClick={handleSignupSubmit}
             >
@@ -72,12 +72,14 @@ const SignUpForm: React.FC = () => {
             </button>
           </div>
           {errorMessage !== "" && (
-            <div className="signup-form__error-message">{errorMessage}</div>
+            <div className="authorisation-form__error-message">
+              {errorMessage}
+            </div>
           )}
         </div>
       </div>
-      <div className="signup-form__login-message">
-        <Link className="signup-form__link" to="/login">
+      <div className="authorisation-form__link-message">
+        <Link className="authorisation-form__link" to="/login">
           Log in
         </Link>{" "}
         if you have an account
