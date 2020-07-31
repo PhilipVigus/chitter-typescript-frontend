@@ -35,6 +35,12 @@ const SignUpForm: React.FC = () => {
       errors.push("Password must be at least 8 characters long");
     }
 
+    if (!password.match(/^[A-Za-z0-9_]+$/)) {
+      errors.push(
+        "Password must only contain letters, numbers and the underscore"
+      );
+    }
+
     if (errors.length > 0) {
       setErrorMessage(errorMessage + errors.join("/n"));
       return false;
