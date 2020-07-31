@@ -76,7 +76,7 @@ describe("MainContainer", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "12345678" } });
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(
@@ -125,7 +125,7 @@ describe("MainContainer", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     let passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "12345678" } });
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(
@@ -138,7 +138,7 @@ describe("MainContainer", () => {
 
     fireEvent.change(usernameField, { target: { value: "steve" } });
     passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
-    fireEvent.change(passwordField, { target: { value: "12345678" } });
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();

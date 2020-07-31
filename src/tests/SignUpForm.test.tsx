@@ -49,12 +49,12 @@ describe("SignupForm", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "12345678" } });
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     await waitFor(() => {
       expect(mock.history.post[0].data).toBe(
-        JSON.stringify({ username: "steve", password: "12345678" })
+        JSON.stringify({ username: "steve", password: "1Abcdefgh2" })
       );
     });
   });
@@ -76,7 +76,7 @@ describe("SignupForm", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "12345678" } });
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(
@@ -101,7 +101,7 @@ describe("SignupForm", () => {
         /Password/
       ) as HTMLInputElement;
 
-      fireEvent.change(passwordField, { target: { value: "12345678" } });
+      fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
       expect(
@@ -125,7 +125,7 @@ describe("SignupForm", () => {
         /Password/
       ) as HTMLInputElement;
 
-      fireEvent.change(passwordField, { target: { value: "12345678" } });
+      fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
       expect(
@@ -175,7 +175,7 @@ describe("SignupForm", () => {
         /Password/
       ) as HTMLInputElement;
 
-      fireEvent.change(passwordField, { target: { value: "12345678?" } });
+      fireEvent.change(passwordField, { target: { value: "1Abcdefgh2?" } });
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
       expect(
@@ -206,6 +206,32 @@ describe("SignupForm", () => {
 
       expect(
         await screen.findByText(/Password must contain at least one number/)
+      ).toBeInTheDocument();
+    });
+
+    it("displays an error message if the password does not contain at least one capital letter", async () => {
+      render(
+        <Router>
+          <SignUpForm />
+        </Router>
+      );
+
+      const usernameField = screen.getByRole("textbox", {
+        name: "Username"
+      }) as HTMLInputElement;
+
+      fireEvent.change(usernameField, { target: { value: "Steve" } });
+      const passwordField = screen.getByLabelText(
+        /Password/
+      ) as HTMLInputElement;
+
+      fireEvent.change(passwordField, { target: { value: "abcde1" } });
+      fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+      expect(
+        await screen.findByText(
+          /Password must contain at least one capital letter/
+        )
       ).toBeInTheDocument();
     });
   });
