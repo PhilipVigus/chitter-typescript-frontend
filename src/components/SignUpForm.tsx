@@ -9,7 +9,7 @@ const SignUpForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const history = useHistory();
 
-  const isUsernameInvalid = (): boolean => {
+  const isUsernameValid = (): boolean => {
     const errors: string[] = [];
     if (username.length < 4) {
       errors.push("Username must be at least 4 characters long");
@@ -21,9 +21,26 @@ const SignUpForm: React.FC = () => {
       );
     }
 
-    setErrorMessage(errors.join("/n"));
+    if (errors.length > 0) {
+      setErrorMessage(errors.join("/n"));
+      return false;
+    } else {
+      return true;
+    }
+  };
 
-    return false;
+  const isPasswordValid = (): boolean => {
+    const errors: string[] = [];
+    if (password.length < 8) {
+      errors.push("Password must be at least 8 characters long");
+    }
+
+    if (errors.length > 0) {
+      setErrorMessage(errorMessage + errors.join("/n"));
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const handleSignupSubmit = (
@@ -31,13 +48,8 @@ const SignUpForm: React.FC = () => {
   ) => {
     evt.preventDefault();
 
-    if (isUsernameInvalid()) {
-      return;
-    }
-
-    const data = { username, password };
-
     const sendSignup = async () => {
+      const data = { username, password };
       axios
         .post("http://localhost:5000/users", data)
         .then(() => {
@@ -52,7 +64,10 @@ const SignUpForm: React.FC = () => {
         });
     };
 
-    sendSignup();
+    if (isUsernameValid() && isPasswordValid()) {
+      setErrorMessage("");
+      sendSignup();
+    }
   };
 
   return (

@@ -50,7 +50,7 @@ describe("LoginForm", () => {
     fireEvent.change(usernameField, { target: { value: "bob" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.change(passwordField, { target: { value: "12345678" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(

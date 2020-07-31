@@ -49,12 +49,12 @@ describe("SignupForm", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.change(passwordField, { target: { value: "12345678" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     await waitFor(() => {
       expect(mock.history.post[0].data).toBe(
-        JSON.stringify({ username: "steve", password: "1234" })
+        JSON.stringify({ username: "steve", password: "12345678" })
       );
     });
   });
@@ -76,7 +76,7 @@ describe("SignupForm", () => {
     fireEvent.change(usernameField, { target: { value: "steve" } });
     const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
 
-    fireEvent.change(passwordField, { target: { value: "1234" } });
+    fireEvent.change(passwordField, { target: { value: "12345678" } });
     fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
     expect(
@@ -101,7 +101,7 @@ describe("SignupForm", () => {
         /Password/
       ) as HTMLInputElement;
 
-      fireEvent.change(passwordField, { target: { value: "1234" } });
+      fireEvent.change(passwordField, { target: { value: "12345678" } });
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
       expect(
@@ -125,7 +125,7 @@ describe("SignupForm", () => {
         /Password/
       ) as HTMLInputElement;
 
-      fireEvent.change(passwordField, { target: { value: "1234" } });
+      fireEvent.change(passwordField, { target: { value: "12345678" } });
       fireEvent.click(screen.getByRole("button", { name: "Submit" }));
 
       expect(
