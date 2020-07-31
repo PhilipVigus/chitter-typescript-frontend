@@ -10,6 +10,10 @@ describe("PeepsList", () => {
   const mock = new MockAdapter(axios);
 
   beforeAll(() => {
+    const earliestDate = new Date(2020, 12, 1);
+    const middleDate = new Date(2020, 12, 2);
+    const latestDate = new Date(2020, 12, 3);
+
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
         {
@@ -17,7 +21,7 @@ describe("PeepsList", () => {
           userId: 1,
           username: "bob",
           text: "Text 1",
-          timeCreated: new Date(),
+          timeCreated: earliestDate,
           comments: [],
           likes: []
         },
@@ -26,7 +30,7 @@ describe("PeepsList", () => {
           userId: 1,
           username: "bob",
           text: "Text 2",
-          timeCreated: new Date(),
+          timeCreated: latestDate,
           comments: [],
           likes: []
         },
@@ -35,7 +39,7 @@ describe("PeepsList", () => {
           userId: 1,
           username: "bob",
           text: "Text 3",
-          timeCreated: new Date(),
+          timeCreated: middleDate,
           comments: [],
           likes: []
         }
@@ -58,8 +62,8 @@ describe("PeepsList", () => {
 
     const peeps = await screen.findAllByText(/Text/);
 
-    expect(peeps[0].innerHTML).toBe("Text 3");
-    expect(peeps[1].innerHTML).toBe("Text 2");
+    expect(peeps[0].innerHTML).toBe("Text 2");
+    expect(peeps[1].innerHTML).toBe("Text 3");
     expect(peeps[2].innerHTML).toBe("Text 1");
   });
 

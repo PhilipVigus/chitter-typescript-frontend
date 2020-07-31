@@ -9,7 +9,10 @@ const PeepsList: React.FC = () => {
     <div>
       {newPeeps
         .sort((a: PeepProps, b: PeepProps) => {
-          if (new Date(a.timeCreated) < new Date(b.timeCreated)) {
+          if (
+            new Date(a.timeCreated).getTime() <
+            new Date(b.timeCreated).getTime()
+          ) {
             return 1;
           } else {
             return -1;
