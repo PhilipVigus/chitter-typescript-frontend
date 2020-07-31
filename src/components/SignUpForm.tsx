@@ -10,10 +10,18 @@ const SignUpForm: React.FC = () => {
   const history = useHistory();
 
   const isUsernameInvalid = (): boolean => {
+    const errors: string[] = [];
     if (username.length < 4) {
-      setErrorMessage("Username must be at least 4 characters long");
-      return true;
+      errors.push("Username must be at least 4 characters long");
     }
+
+    if (!username.match(/^[A-Za-z0-9_]+$/)) {
+      errors.push(
+        "Username must only contain letters, numbers and the underscore"
+      );
+    }
+
+    setErrorMessage(errors.join("/n"));
 
     return false;
   };

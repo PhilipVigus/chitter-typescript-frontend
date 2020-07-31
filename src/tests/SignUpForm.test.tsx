@@ -108,5 +108,31 @@ describe("SignupForm", () => {
         await screen.findByText(/Username must be at least 4 characters long/)
       ).toBeInTheDocument();
     });
+
+    it("displays an error message if the username has invalid characters", async () => {
+      render(
+        <Router>
+          <SignUpForm />
+        </Router>
+      );
+
+      const usernameField = screen.getByRole("textbox", {
+        name: "Username"
+      }) as HTMLInputElement;
+
+      fireEvent.change(usernameField, { target: { value: "Steve-?" } });
+      const passwordField = screen.getByLabelText(
+        /Password/
+      ) as HTMLInputElement;
+
+      fireEvent.change(passwordField, { target: { value: "1234" } });
+      fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+      expect(
+        await screen.findByText(
+          /Username must only contain letters, numbers and the underscore/
+        )
+      ).toBeInTheDocument();
+    });
   });
 });
