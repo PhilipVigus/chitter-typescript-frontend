@@ -49,6 +49,10 @@ const SignUpForm: React.FC = () => {
       errors.push("Password must contain at least one capital letter");
     }
 
+    if (!password.match(/[a-z]+/)) {
+      errors.push("Password must contain at least one lowercase letter");
+    }
+
     if (errors.length > 0) {
       setErrorMessage(errorMessage + errors.join("/n"));
       return false;

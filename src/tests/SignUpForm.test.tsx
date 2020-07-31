@@ -234,5 +234,31 @@ describe("SignupForm", () => {
         )
       ).toBeInTheDocument();
     });
+
+    it("displays an error message if the password does not contain at least one lowercase letter", async () => {
+      render(
+        <Router>
+          <SignUpForm />
+        </Router>
+      );
+
+      const usernameField = screen.getByRole("textbox", {
+        name: "Username"
+      }) as HTMLInputElement;
+
+      fireEvent.change(usernameField, { target: { value: "Steve" } });
+      const passwordField = screen.getByLabelText(
+        /Password/
+      ) as HTMLInputElement;
+
+      fireEvent.change(passwordField, { target: { value: "ABCDEFGH1" } });
+      fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+      expect(
+        await screen.findByText(
+          /Password must contain at least one lowercase letter/
+        )
+      ).toBeInTheDocument();
+    });
   });
 });
