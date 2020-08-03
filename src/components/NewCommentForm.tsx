@@ -15,6 +15,11 @@ const NewCommentForm: React.FC<CommentProps> = ({ peepId }: CommentProps) => {
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     evt.preventDefault();
+
+    if (text === "") {
+      return;
+    }
+
     const data = { userId: userState.id, peepId, text };
 
     const sendNewComment = async () => {

@@ -6,9 +6,10 @@ import NewCommentForm from "../components/NewCommentForm";
 import { MainContextProvider } from "../contexts/MainContext";
 
 describe("NewPeepForm", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
-  beforeAll(() => {
+  beforeEach(() => {
+    mock = new MockAdapter(axios);
     mock.onPost("http://localhost:5000/peeps/1/comments").reply(200);
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
@@ -32,6 +33,10 @@ describe("NewPeepForm", () => {
     });
   });
 
+  afterEach(() => {
+    mock.reset();
+  });
+
   afterAll(() => {
     mock.restore();
   });
@@ -53,6 +58,21 @@ describe("NewPeepForm", () => {
       expect(mock.history.post[0].data).toBe(
         JSON.stringify({ userId: 5, peepId: 1, text: "Some text" })
       );
+    });
+  });
+
+  it("doesnt post an empty comment", async () => {
+    render(
+      <MainContextProvider initialState={{ name: "", id: 5 }}>
+        <NewCommentForm peepId={1} />
+      </MainContextProvider>
+    );
+
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mock.history.post.length).toBe(0);
     });
   });
 

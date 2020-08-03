@@ -65,9 +65,10 @@ describe("NewPeepForm", () => {
   });
 
   it("errors to console with the peep submit fails", async () => {
-    mock.onPost("http://localhost:5000/peeps").reply(404);
     const original = console.error;
     console.error = jest.fn();
+
+    mock.onPost("http://localhost:5000/peeps").reply(404);
 
     render(<NewPeepForm />);
 
