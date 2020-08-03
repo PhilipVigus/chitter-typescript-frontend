@@ -73,10 +73,9 @@ const MainContextProvider: React.FC<IProps> = ({
         })
         .catch((thrown) => {
           if (axios.isCancel(thrown)) {
-            console.log("Peeps get request cancelled");
+            console.error("Peeps get request cancelled");
           } else {
-            console.log("Error getting peeps");
-            console.log(thrown.message);
+            console.error("Error getting peeps");
           }
         });
     };

@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
@@ -217,5 +217,54 @@ describe("MainContainer", () => {
     fireEvent.click(peepSummary);
 
     expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
+  });
+
+  it("errors to console if the peeps list fails to load", async () => {
+    const original = console.error;
+    console.error = jest.fn();
+
+    mock
+      .onPost("http://localhost:5000/users")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock
+      .onPost("http://localhost:5000/sessions")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock.onGet("http://localhost:5000/peeps").reply(404);
+
+    render(
+      <Router initialEntries={["/signup"]} initialIndex={0}>
+        <MainContainer />
+      </Router>
+    );
+
+    let usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "steve" } });
+    let passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Log in" })
+    ).toBeInTheDocument();
+
+    usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "steve" } });
+    passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+    console.error = original;
   });
 });
