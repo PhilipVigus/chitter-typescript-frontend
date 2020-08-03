@@ -44,4 +44,24 @@ describe("NewPeepForm", () => {
       expect(textArea.value).toBe("");
     });
   });
+
+  it("errors to console with the peep submit fails", async () => {
+    mock.onPost("http://localhost:5000/peeps").reply(404);
+    const original = console.error;
+    console.error = jest.fn();
+
+    render(<NewPeepForm />);
+
+    const textArea = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.change(textArea, { target: { value: "Some text" } });
+
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    console.error = original;
+  });
 });
