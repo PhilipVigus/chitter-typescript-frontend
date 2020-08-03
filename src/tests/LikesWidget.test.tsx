@@ -134,5 +134,47 @@ describe("LikesWidget", () => {
         expect(mock.history.delete.length).toBe(1);
       });
     });
+
+    it("errors to console if the POST to likes fails", async () => {
+      const original = console.error;
+      console.error = jest.fn();
+      mock.onPost("http://localhost:5000/peeps/1/likes").reply(404);
+
+      render(
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked={false} peepId={1} disabled={false} />
+        </MainContextProvider>
+      );
+
+      const likesButton = screen.getByRole("button");
+      fireEvent.click(likesButton);
+
+      await waitFor(() => {
+        expect(console.error).toHaveBeenCalledTimes(1);
+      });
+
+      console.error = original;
+    });
+
+    it("errors to console if DELETE likes fails", async () => {
+      const original = console.error;
+      console.error = jest.fn();
+      mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(404);
+
+      render(
+        <MainContextProvider initialState={{ name: "bob", id: 1 }}>
+          <LikesWidget likes={[]} liked peepId={1} disabled={false} />
+        </MainContextProvider>
+      );
+
+      const likesButton = screen.getByRole("button");
+      fireEvent.click(likesButton);
+
+      await waitFor(() => {
+        expect(console.error).toHaveBeenCalledTimes(1);
+      });
+
+      console.error = original;
+    });
   });
 });

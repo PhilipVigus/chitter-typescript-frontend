@@ -1,6 +1,6 @@
 import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import LoginForm from "../components/LoginForm";
@@ -56,5 +56,32 @@ describe("LoginForm", () => {
     expect(
       await screen.findByText(/Incorrect login details/)
     ).toBeInTheDocument();
+  });
+
+  it("errors to console for other errors", async () => {
+    mock.onPost("http://localhost:5000/sessions").reply(404);
+    const original = console.error;
+    console.error = jest.fn();
+    render(
+      <Router>
+        <LoginForm />
+      </Router>
+    );
+
+    const usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "bob" } });
+    const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    console.error = original;
   });
 });

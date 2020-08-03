@@ -35,7 +35,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
           setLastUpdateTime(Date.now());
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     };
 
@@ -48,7 +48,7 @@ const LikesWidget: React.FC<LikesWidgeProps> = ({
           setLastUpdateTime(Date.now());
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     };
 

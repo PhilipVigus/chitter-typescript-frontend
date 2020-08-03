@@ -84,6 +84,33 @@ describe("SignupForm", () => {
     ).toBeInTheDocument();
   });
 
+  it("posts the information to the server when you click signup", async () => {
+    const original = console.error;
+    console.error = jest.fn();
+    mock.onPost("http://localhost:5000/users").reply(404);
+    render(
+      <Router>
+        <SignUpForm />
+      </Router>
+    );
+
+    const usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "steve" } });
+    const passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    console.error = original;
+  });
+
   describe("input validation", () => {
     it("displays an error message if the username is too short", async () => {
       render(

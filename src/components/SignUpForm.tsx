@@ -67,7 +67,7 @@ const SignUpForm: React.FC = () => {
           if (error.response.status === 422) {
             setErrorMessages([...errorMessages, error.response.data.error]);
           } else {
-            console.log(error);
+            console.error(error);
           }
         });
     };

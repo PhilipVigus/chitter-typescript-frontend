@@ -73,4 +73,28 @@ describe("NewPeepForm", () => {
       expect(textArea.value).toBe("");
     });
   });
+
+  it("errors to console if the comment submit fails", async () => {
+    mock.onPost("http://localhost:5000/peeps/1/comments").reply(404);
+    const original = console.error;
+    console.error = jest.fn();
+
+    render(
+      <MainContextProvider initialState={{ name: "", id: 5 }}>
+        <NewCommentForm peepId={1} />
+      </MainContextProvider>
+    );
+
+    const textArea = screen.getByRole("textbox") as HTMLInputElement;
+    fireEvent.change(textArea, { target: { value: "Some text" } });
+
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    console.error = original;
+  });
 });

@@ -23,7 +23,7 @@ const NewCommentForm: React.FC<CommentProps> = ({ peepId }: CommentProps) => {
         .then(() => {
           setLastUpdateTime(Date.now());
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
     };
 
     sendNewComment();
