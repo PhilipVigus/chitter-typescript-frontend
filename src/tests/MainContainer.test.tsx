@@ -155,4 +155,67 @@ describe("MainContainer", () => {
       await screen.findByRole("heading", { name: "Log in" })
     ).toBeInTheDocument();
   });
+
+  it("renders a peep when you click on it in the list", async () => {
+    mock
+      .onPost("http://localhost:5000/users")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock
+      .onPost("http://localhost:5000/sessions")
+      .reply(200, { id: 1, username: "bob" });
+
+    mock.onGet("http://localhost:5000/peeps").reply(200, {
+      peeps: [
+        {
+          id: 1,
+          text: "Peep 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        },
+        {
+          id: 2,
+          text: "Peep 2",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        }
+      ]
+    });
+
+    render(
+      <Router initialEntries={["/signup"]} initialIndex={0}>
+        <MainContainer />
+      </Router>
+    );
+
+    let usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "steve" } });
+    let passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    expect(
+      await screen.findByRole("heading", { name: "Log in" })
+    ).toBeInTheDocument();
+
+    usernameField = screen.getByRole("textbox", {
+      name: "Username"
+    }) as HTMLInputElement;
+
+    fireEvent.change(usernameField, { target: { value: "steve" } });
+    passwordField = screen.getByLabelText(/Password/) as HTMLInputElement;
+    fireEvent.change(passwordField, { target: { value: "1Abcdefgh2" } });
+    fireEvent.click(screen.getByRole("button", { name: "Submit" }));
+
+    const peepSummary = await screen.findByText(/Peep 2/);
+    fireEvent.click(peepSummary);
+
+    expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
+  });
 });
