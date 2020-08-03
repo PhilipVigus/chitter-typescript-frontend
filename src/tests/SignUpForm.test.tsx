@@ -3,6 +3,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import SignUpForm from "../components/SignUpForm";
 
 describe("SignupForm", () => {
@@ -42,7 +43,7 @@ describe("SignupForm", () => {
 
   it("posts the information to the server when you click signup", async () => {
     mock
-      .onPost("http://localhost:5000/users")
+      .onPost(`${BACKEND_URL}/users`)
       .reply(200, { id: 1, username: "steve" });
     render(
       <Router>
@@ -69,7 +70,7 @@ describe("SignupForm", () => {
 
   it("displays an error if signup is unsuccessful", async () => {
     mock
-      .onPost("http://localhost:5000/users")
+      .onPost(`${BACKEND_URL}/users`)
       .reply(422, { error: "Username already taken" });
     render(
       <Router>
@@ -92,10 +93,10 @@ describe("SignupForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("posts the information to the server when you click signup", async () => {
+  it("errors to the console if signup fails", async () => {
     const original = console.error;
     console.error = jest.fn();
-    mock.onPost("http://localhost:5000/users").reply(404);
+    mock.onPost(`${BACKEND_URL}/users`).reply(404);
     render(
       <Router>
         <SignUpForm />

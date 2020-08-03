@@ -2,6 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import NewCommentForm from "../components/NewCommentForm";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -13,8 +14,8 @@ describe("NewPeepForm", () => {
   });
 
   beforeEach(() => {
-    mock.onPost("http://localhost:5000/peeps/1/comments").reply(200);
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onPost(`${BACKEND_URL}/peeps/1/comments`).reply(200);
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -98,7 +99,7 @@ describe("NewPeepForm", () => {
   });
 
   it("errors to console if the comment submit fails", async () => {
-    mock.onPost("http://localhost:5000/peeps/1/comments").reply(404);
+    mock.onPost(`${BACKEND_URL}/peeps/1/comments`).reply(404);
     const original = console.error;
     console.error = jest.fn();
 

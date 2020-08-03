@@ -3,6 +3,7 @@ import { MemoryRouter as Router, Route } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import Peep from "../components/Peep";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -17,7 +18,7 @@ describe("Peep", () => {
     const peepCreationDate = new Date(2020, 5, 3, 11, 5, 23);
     const commentCreationDate = new Date(2020, 6, 3, 11, 5, 23);
 
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,

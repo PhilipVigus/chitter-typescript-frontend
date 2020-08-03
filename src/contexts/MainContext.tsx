@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../config/config";
 
 type IUserState = {
   name?: string;
@@ -60,7 +61,7 @@ const MainContextProvider: React.FC<IProps> = ({
 
     const fetchPeeps = async () => {
       axios
-        .get("http://localhost:5000/peeps", {
+        .get(`${BACKEND_URL}/peeps`, {
           cancelToken: source.token,
           withCredentials: true,
           headers: {

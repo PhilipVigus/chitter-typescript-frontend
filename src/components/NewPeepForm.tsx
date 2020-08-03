@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
+import BACKEND_URL from "../config/config";
 import { MainContext } from "../contexts/MainContext";
 import "./NewPeepForm.css";
 
@@ -20,7 +21,7 @@ const NewPeepForm: React.FC = () => {
 
     const sendNewPeep = async () => {
       axios
-        .post("http://localhost:5000/peeps", data)
+        .post(`${BACKEND_URL}/peeps`, data)
         .then(() => {
           setLastUpdateTime(Date.now());
         })

@@ -1,6 +1,7 @@
 import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import BACKEND_URL from "../config/config";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import LoginForm from "../components/LoginForm";
@@ -42,7 +43,7 @@ describe("LoginForm", () => {
 
   it("renders an error when log in is unsuccessful", async () => {
     mock
-      .onPost("http://localhost:5000/sessions")
+      .onPost(`${BACKEND_URL}/sessions`)
       .reply(422, { error: "Incorrect login details" });
 
     render(
@@ -67,7 +68,7 @@ describe("LoginForm", () => {
   });
 
   it("errors to console for other errors", async () => {
-    mock.onPost("http://localhost:5000/sessions").reply(404);
+    mock.onPost(`${BACKEND_URL}/sessions`).reply(404);
     const original = console.error;
     console.error = jest.fn();
     render(

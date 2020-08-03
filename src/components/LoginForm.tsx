@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
+import BACKEND_URL from "../config/config";
 import { MainContext } from "../contexts/MainContext";
 import "./AuthorisationForm.css";
 
@@ -20,7 +21,7 @@ const LoginForm: React.FC = () => {
 
     const sendLogin = async () => {
       axios
-        .post("http://localhost:5000/sessions", data, {
+        .post(`${BACKEND_URL}/sessions`, data, {
           withCredentials: true,
           headers: {
             "Access-Control-Allow-Origin": "*",
