@@ -11,6 +11,11 @@ const NewPeepForm: React.FC = () => {
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     evt.preventDefault();
+
+    if (text === "") {
+      return;
+    }
+
     const data = { userId: userState.id, text };
 
     const sendNewPeep = async () => {

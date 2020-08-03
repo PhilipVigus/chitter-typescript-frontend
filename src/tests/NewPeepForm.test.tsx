@@ -5,10 +5,18 @@ import MockAdapter from "axios-mock-adapter";
 import NewPeepForm from "../components/NewPeepForm";
 
 describe("NewPeepForm", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     mock.onPost("http://localhost:5000/peeps").reply(200);
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {
@@ -28,6 +36,17 @@ describe("NewPeepForm", () => {
       expect(mock.history.post[0].data).toBe(
         JSON.stringify({ text: "Some text" })
       );
+    });
+  });
+
+  it("doesnt post the peep if it is empty", async () => {
+    render(<NewPeepForm />);
+
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mock.history.post.length).toBe(0);
     });
   });
 
