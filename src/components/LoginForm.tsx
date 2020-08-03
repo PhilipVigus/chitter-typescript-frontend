@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
           if (error.response.status === 422) {
             setErrorMessage(error.response.data.error);
           } else {
-            console.log(error);
+            console.error(error);
           }
         });
     };
