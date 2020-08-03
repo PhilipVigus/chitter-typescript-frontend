@@ -6,14 +6,22 @@ import LikesWidget from "../components/LikesWidget";
 import { MainContextProvider } from "../contexts/MainContext";
 
 describe("LikesWidget", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: []
     });
     mock.onPost("http://localhost:5000/peeps/1/likes").reply(200);
     mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(200);
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {

@@ -8,8 +8,11 @@ import { MainContextProvider } from "../contexts/MainContext";
 describe("NewPeepForm", () => {
   let mock: MockAdapter;
 
-  beforeEach(() => {
+  beforeAll(() => {
     mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     mock.onPost("http://localhost:5000/peeps/1/comments").reply(200);
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [

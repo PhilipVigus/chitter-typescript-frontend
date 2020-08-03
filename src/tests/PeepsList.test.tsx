@@ -7,9 +7,13 @@ import PeepsList from "../components/PeepsList";
 import { MainContextProvider } from "../contexts/MainContext";
 
 describe("PeepsList", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     const earliestDate = new Date(2020, 12, 1);
     const middleDate = new Date(2020, 12, 2);
     const latestDate = new Date(2020, 12, 3);
@@ -45,6 +49,10 @@ describe("PeepsList", () => {
         }
       ]
     });
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {

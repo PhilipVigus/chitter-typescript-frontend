@@ -7,9 +7,13 @@ import Peep from "../components/Peep";
 import { MainContextProvider } from "../contexts/MainContext";
 
 describe("Peep", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     const peepCreationDate = new Date(2020, 5, 3, 11, 5, 23);
     const commentCreationDate = new Date(2020, 6, 3, 11, 5, 23);
 
@@ -34,6 +38,10 @@ describe("Peep", () => {
         }
       ]
     });
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {

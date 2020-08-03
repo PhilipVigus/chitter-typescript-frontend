@@ -6,9 +6,13 @@ import MockAdapter from "axios-mock-adapter";
 import MainContainer from "../components/MainContainer";
 
 describe("MainContainer", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
     mock.onGet("http://localhost:5000/peeps").reply(200, {
       peeps: [
         {
@@ -40,6 +44,10 @@ describe("MainContainer", () => {
         }
       ]
     });
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {

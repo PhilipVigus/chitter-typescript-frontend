@@ -6,7 +6,15 @@ import MockAdapter from "axios-mock-adapter";
 import LoginForm from "../components/LoginForm";
 
 describe("LoginForm", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
+
+  beforeAll(() => {
+    mock = new MockAdapter(axios);
+  });
+
+  afterEach(() => {
+    mock.reset();
+  });
 
   afterAll(() => {
     mock.restore();
