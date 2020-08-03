@@ -22,9 +22,9 @@
 }
 
 .peep-summary-container__statuses {
+  align-content: center;
   display: flex;
   justify-content: space-around;
-  align-content: center;
   margin: 0px 0 10px 0;
 }
 

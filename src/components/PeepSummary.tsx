@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MainContext, PeepProps } from "../contexts/MainContext";
 import LikesWidget from "./LikesWidget";
+import getTimeCreatedString from "./helpers/getTimeCreatedString";
 import "./PeepSummary.css";
 
 const PeepSummary: React.FC<PeepProps> = ({
@@ -13,13 +14,6 @@ const PeepSummary: React.FC<PeepProps> = ({
   likes
 }: PeepProps) => {
   const [userState] = useContext(MainContext);
-
-  const getTimeCreatedString = () => {
-    const date = new Date(timeCreated);
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
-      date.getMonth() + 1
-    }-${date.getFullYear()}`;
-  };
 
   const isLiked = () => {
     return likes.includes(userState.name as string);
@@ -35,7 +29,7 @@ const PeepSummary: React.FC<PeepProps> = ({
         <div className="peep-summary-container__header">
           <div>@{username}</div>
           <div className="peep-summary-container__time-created">
-            {getTimeCreatedString()}
+            {getTimeCreatedString(timeCreated)}
           </div>
         </div>
         <div className="peep-summary-container__text">{text}</div>

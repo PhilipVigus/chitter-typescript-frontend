@@ -8,6 +8,7 @@ import {
 } from "../contexts/MainContext";
 import NewCommentForm from "./NewCommentForm";
 import LikesWidget from "./LikesWidget";
+import getTimeCreatedString from "./helpers/getTimeCreatedString";
 import "./Peep.css";
 
 const Peep: React.FC = () => {
@@ -26,6 +27,7 @@ const Peep: React.FC = () => {
       likes: LikesProps[];
     } | null => {
       const idAsNumber = parseInt(id, 10);
+
       for (let i = 0; i < peeps.length; i += 1) {
         if (peeps[i].id === idAsNumber) {
           const foundPeep = peeps[i];
@@ -52,14 +54,6 @@ const Peep: React.FC = () => {
     }
   }, [id, peeps]);
 
-  const getTimeCreatedString = (timeCreated: string | undefined) => {
-    const date = new Date(timeCreated as string);
-
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} on ${date.getDate()}-${
-      date.getMonth() + 1
-    }-${date.getFullYear()}`;
-  };
-
   const isLiked = () => {
     return peep?.likes.includes(userState.name as string);
   };
@@ -75,7 +69,7 @@ const Peep: React.FC = () => {
           <div className="peep-container__header">
             <div className="peep-container__username">@{peep?.username}</div>
             <div className="peep-container__time-created">
-              {getTimeCreatedString(peep?.timeCreated)}
+              {getTimeCreatedString(peep?.timeCreated as string)}
             </div>
             <Link className="back-link" to="/peeps">
               <i className="fas fa-times" />

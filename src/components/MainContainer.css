@@ -9,6 +9,6 @@ header {
 }
 
 .logout-link {
-  font-size: 1.6rem;
   align-self: flex-end;
+  font-size: 1.6rem;
 }

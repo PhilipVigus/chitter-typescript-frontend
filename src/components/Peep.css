@@ -30,16 +30,16 @@
 }
 
 .peep-container__statuses {
+  align-content: center;
   border-bottom: 1px solid var(--mid-tone);
   display: flex;
   justify-content: space-around;
-  align-content: center;
   margin: 0px 0 3px 0;
 }
 
 .peep-container__status {
-  padding-top: 10px;
   padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .comment-container {

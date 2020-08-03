@@ -3,19 +3,19 @@ import axios from "axios";
 import { LikesProps, MainContext } from "../contexts/MainContext";
 import "./LikesWidget.css";
 
-export type LikesWidgeProps = {
+export type LikesWidgetProps = {
   likes: Array<LikesProps>;
   liked: boolean;
   peepId: number;
   disabled: boolean;
 };
 
-const LikesWidget: React.FC<LikesWidgeProps> = ({
+const LikesWidget: React.FC<LikesWidgetProps> = ({
   likes,
   liked,
   peepId,
   disabled
-}: LikesWidgeProps) => {
+}: LikesWidgetProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(liked);
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length);
   const [userState, , , setLastUpdateTime] = useContext(MainContext);

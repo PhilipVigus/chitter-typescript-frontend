@@ -22,10 +22,10 @@
 }
 
 .authorisation-form__input {
-  width: 100%;
   font-size: 1.6rem;
   margin-top: 5px;
   padding: 5px;
+  width: 100%;
 }
 
 .authorisation-form__button {
