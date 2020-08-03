@@ -41,13 +41,6 @@ body {
   font-size: 1.6rem;
 }
 
-header {
-  background-color: var(--darkest-colour);
-  color: var(--lightest-colour);
-  font-family: "Roboto", sans-serif;
-  font-size: 5rem;
-}
-
 button {
   background: none;
   color: inherit;

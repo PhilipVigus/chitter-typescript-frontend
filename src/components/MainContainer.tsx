@@ -1,19 +1,35 @@
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, Link } from "react-router-dom";
 import PeepsContainer from "./PeepsContainer";
 import Peep from "./Peep";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import { MainContext } from "../contexts/MainContext";
 import ProtectedRoute from "./ProtectedRoute";
+import "./MainContainer.css";
 
 const MainContainer: React.FC = () => {
-  const [userState] = useContext(MainContext);
+  const [userState, setUserState] = useContext(MainContext);
 
+  const handleLogoutClick = (
+    evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    evt.preventDefault();
+    setUserState({ name: "", id: 0 });
+  };
   return (
     <div>
-      <header>Chitter</header>
-      {userState.name}
+      <header>
+        <div>Chitter</div>
+        <div className="logout-link">
+          {userState.id !== 0 && (
+            <Link to="/login" onClick={handleLogoutClick}>
+              Log out
+            </Link>
+          )}
+        </div>
+      </header>
+
       <Switch>
         <Route
           exact
