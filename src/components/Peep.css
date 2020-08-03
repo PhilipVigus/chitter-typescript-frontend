@@ -13,10 +13,16 @@
   font-size: 1.6rem;
   justify-content: space-between;
   padding: 10px;
+  width: 100%;
+}
+
+.peep-container__username {
+  width: 100%;
 }
 
 .peep-container__time-created {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  white-space: nowrap;
 }
 
 .peep-container__text {
@@ -48,9 +54,15 @@
 }
 
 .comment-container__time-created {
-  font-size: 1.2rem;
+  flex: 0 0 auto;
 }
 
 .comment-container__text {
   margin: 0 0 15px 30px;
+}
+
+.back-link {
+  flex: 0 0 auto;
+  margin-left: 20px;
+  margin-right: 5px;
 }

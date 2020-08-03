@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   MainContext,
   CommentProps,
@@ -39,6 +39,8 @@ const Peep: React.FC = () => {
             comments: foundPeep.comments,
             likes: foundPeep.likes
           });
+
+          break;
         }
       }
 
@@ -68,37 +70,42 @@ const Peep: React.FC = () => {
 
   const formatPeep = () => {
     return (
-      <div className="peep-container">
-        <div className="peep-container__header">
-          <div>@{peep?.username}</div>
-          <div className="peep-container__time-created">
-            {getTimeCreatedString(peep?.timeCreated)}
-          </div>
-        </div>
-        <div className="peep-container__text">{peep?.text}</div>
-        <div className="peep-container__statuses">
-          <div className="peep-container__status">
-            <LikesWidget
-              likes={peep?.likes as string[]}
-              liked={isLiked() as boolean}
-              peepId={peep?.id as number}
-              disabled={userIsAuthor()}
-            />
-          </div>
-        </div>
-        {peep?.comments.map((comment) => {
-          return (
-            <div key={comment.id} className="comment-container">
-              <div className="comment-container__header">
-                <div>@{comment.username}</div>
-                <div className="comment-container__time-created">
-                  {getTimeCreatedString(comment?.timeCreated)}
-                </div>
-              </div>
-              <div className="comment-container__text">{comment.text}</div>
+      <div>
+        <div className="peep-container">
+          <div className="peep-container__header">
+            <div className="peep-container__username">@{peep?.username}</div>
+            <div className="peep-container__time-created">
+              {getTimeCreatedString(peep?.timeCreated)}
             </div>
-          );
-        })}
+            <Link className="back-link" to="/peeps">
+              <i className="fas fa-times" />
+            </Link>
+          </div>
+          <div className="peep-container__text">{peep?.text}</div>
+          <div className="peep-container__statuses">
+            <div className="peep-container__status">
+              <LikesWidget
+                likes={peep?.likes as string[]}
+                liked={isLiked() as boolean}
+                peepId={peep?.id as number}
+                disabled={userIsAuthor()}
+              />
+            </div>
+          </div>
+          {peep?.comments.map((comment) => {
+            return (
+              <div key={comment.id} className="comment-container">
+                <div className="comment-container__header">
+                  <div>@{comment.username}</div>
+                  <div className="comment-container__time-created">
+                    {getTimeCreatedString(comment?.timeCreated)}
+                  </div>
+                </div>
+                <div className="comment-container__text">{comment.text}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   };
