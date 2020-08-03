@@ -4,6 +4,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import MainContainer from "../components/MainContainer";
+import { MainContextProvider } from "../contexts/MainContext";
 
 describe("MainContainer", () => {
   let mock: MockAdapter;
@@ -56,9 +57,11 @@ describe("MainContainer", () => {
 
   it("renders login form by by default", async () => {
     render(
-      <Router>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     expect(
@@ -72,9 +75,11 @@ describe("MainContainer", () => {
       .reply(200, { id: 1, username: "steve" });
 
     render(
-      <Router initialEntries={["/signup"]} initialIndex={0}>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/signup"]} initialIndex={0}>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     const usernameField = screen.getByRole("textbox", {
@@ -121,9 +126,11 @@ describe("MainContainer", () => {
     });
 
     render(
-      <Router initialEntries={["/signup"]} initialIndex={0}>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/signup"]} initialIndex={0}>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     let usernameField = screen.getByRole("textbox", {
@@ -154,9 +161,11 @@ describe("MainContainer", () => {
 
   it("redirects to login if you try to get the peeps list without logging", async () => {
     render(
-      <Router initialEntries={["/peeps"]} initialIndex={0}>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/peeps"]} initialIndex={0}>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     expect(
@@ -193,9 +202,11 @@ describe("MainContainer", () => {
     });
 
     render(
-      <Router initialEntries={["/signup"]} initialIndex={0}>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/signup"]} initialIndex={0}>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     let usernameField = screen.getByRole("textbox", {
@@ -242,9 +253,11 @@ describe("MainContainer", () => {
     mock.onGet("http://localhost:5000/peeps").reply(404);
 
     render(
-      <Router initialEntries={["/signup"]} initialIndex={0}>
-        <MainContainer />
-      </Router>
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router initialEntries={["/signup"]} initialIndex={0}>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     );
 
     let usernameField = screen.getByRole("textbox", {

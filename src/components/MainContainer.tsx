@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import PeepsContainer from "./PeepsContainer";
 import Peep from "./Peep";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
-import { MainContextProvider } from "../contexts/MainContext";
+import { MainContext } from "../contexts/MainContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 const MainContainer: React.FC = () => {
+  const [userState] = useContext(MainContext);
+
   return (
-    <MainContextProvider initialState={{ name: "", id: 0 }}>
+    <div>
+      <header>Chitter</header>
+      {userState.name}
       <Switch>
         <Route
           exact
@@ -23,7 +27,7 @@ const MainContainer: React.FC = () => {
         <ProtectedRoute exact path="/peeps" component={PeepsContainer} />
         <ProtectedRoute path="/peeps/:id" component={Peep} />
       </Switch>
-    </MainContextProvider>
+    </div>
   );
 };
 
