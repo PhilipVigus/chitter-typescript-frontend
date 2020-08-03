@@ -92,9 +92,7 @@ describe("NewPeepForm", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(mock.history.post[0].data).toBe(
-        JSON.stringify({ userId: 5, peepId: 1, text: "Some text" })
-      );
+      expect(console.error).toHaveBeenCalledTimes(1);
     });
 
     console.error = original;
