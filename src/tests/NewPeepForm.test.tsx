@@ -2,6 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import NewPeepForm from "../components/NewPeepForm";
 
 describe("NewPeepForm", () => {
@@ -12,7 +13,7 @@ describe("NewPeepForm", () => {
   });
 
   beforeEach(() => {
-    mock.onPost("http://localhost:5000/peeps").reply(200);
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(200);
   });
 
   afterEach(() => {
@@ -68,7 +69,7 @@ describe("NewPeepForm", () => {
     const original = console.error;
     console.error = jest.fn();
 
-    mock.onPost("http://localhost:5000/peeps").reply(404);
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(404);
 
     render(<NewPeepForm />);
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import PeepsList from "../components/PeepsList";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -18,7 +19,7 @@ describe("PeepsList", () => {
     const middleDate = new Date(2020, 12, 2);
     const latestDate = new Date(2020, 12, 3);
 
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -76,7 +77,7 @@ describe("PeepsList", () => {
   });
 
   it("disables the like button if the peep is yours", async () => {
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,

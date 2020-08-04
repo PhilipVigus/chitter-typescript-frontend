@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
+import BACKEND_URL from "../config/config";
 import "./AuthorisationForm.css";
 
 const SignUpForm: React.FC = () => {
@@ -59,7 +60,7 @@ const SignUpForm: React.FC = () => {
     const sendSignup = async () => {
       const data = { username, password };
       axios
-        .post("http://localhost:5000/users", data)
+        .post(`${BACKEND_URL}/users`, data)
         .then(() => {
           history.push("/login");
         })

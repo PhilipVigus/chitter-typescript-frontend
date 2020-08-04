@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import LikesWidget from "../components/LikesWidget";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -13,11 +14,11 @@ describe("LikesWidget", () => {
   });
 
   beforeEach(() => {
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: []
     });
-    mock.onPost("http://localhost:5000/peeps/1/likes").reply(200);
-    mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(200);
+    mock.onPost(`${BACKEND_URL}/peeps/1/likes`).reply(200);
+    mock.onDelete(`${BACKEND_URL}/peeps/1/likes/1`).reply(200);
   });
 
   afterEach(() => {
@@ -146,7 +147,7 @@ describe("LikesWidget", () => {
     it("errors to console if the POST to likes fails", async () => {
       const original = console.error;
       console.error = jest.fn();
-      mock.onPost("http://localhost:5000/peeps/1/likes").reply(404);
+      mock.onPost(`${BACKEND_URL}/peeps/1/likes`).reply(404);
 
       render(
         <MainContextProvider initialState={{ name: "bob", id: 1 }}>
@@ -167,7 +168,7 @@ describe("LikesWidget", () => {
     it("errors to console if DELETE likes fails", async () => {
       const original = console.error;
       console.error = jest.fn();
-      mock.onDelete("http://localhost:5000/peeps/1/likes/1").reply(404);
+      mock.onDelete(`${BACKEND_URL}/peeps/1/likes/1`).reply(404);
 
       render(
         <MainContextProvider initialState={{ name: "bob", id: 1 }}>

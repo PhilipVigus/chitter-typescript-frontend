@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter as Router } from "react-router-dom";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import MainContainer from "../components/MainContainer";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -14,7 +15,7 @@ describe("MainContainer", () => {
   });
 
   beforeEach(() => {
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -71,7 +72,7 @@ describe("MainContainer", () => {
 
   it("renders login when you successfully sign up", async () => {
     mock
-      .onPost("http://localhost:5000/users")
+      .onPost(`${BACKEND_URL}/users`)
       .reply(200, { id: 1, username: "steve" });
 
     render(
@@ -98,15 +99,13 @@ describe("MainContainer", () => {
   });
 
   it("renders a the peeps list when you successfully log in", async () => {
-    mock
-      .onPost("http://localhost:5000/users")
-      .reply(200, { id: 1, username: "bob" });
+    mock.onPost(`${BACKEND_URL}/users`).reply(200, { id: 1, username: "bob" });
 
     mock
-      .onPost("http://localhost:5000/sessions")
+      .onPost(`${BACKEND_URL}/sessions`)
       .reply(200, { id: 1, username: "bob" });
 
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -160,15 +159,13 @@ describe("MainContainer", () => {
   });
 
   it("logs you out and redirects to login when you click logout", async () => {
-    mock
-      .onPost("http://localhost:5000/users")
-      .reply(200, { id: 1, username: "bob" });
+    mock.onPost(`${BACKEND_URL}/users`).reply(200, { id: 1, username: "bob" });
 
     mock
-      .onPost("http://localhost:5000/sessions")
+      .onPost(`${BACKEND_URL}/sessions`)
       .reply(200, { id: 1, username: "bob" });
 
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -240,15 +237,13 @@ describe("MainContainer", () => {
   });
 
   it("renders a peep when you click on it in the list", async () => {
-    mock
-      .onPost("http://localhost:5000/users")
-      .reply(200, { id: 1, username: "bob" });
+    mock.onPost(`${BACKEND_URL}/users`).reply(200, { id: 1, username: "bob" });
 
     mock
-      .onPost("http://localhost:5000/sessions")
+      .onPost(`${BACKEND_URL}/sessions`)
       .reply(200, { id: 1, username: "bob" });
 
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -308,15 +303,13 @@ describe("MainContainer", () => {
     const original = console.error;
     console.error = jest.fn();
 
-    mock
-      .onPost("http://localhost:5000/users")
-      .reply(200, { id: 1, username: "bob" });
+    mock.onPost(`${BACKEND_URL}/users`).reply(200, { id: 1, username: "bob" });
 
     mock
-      .onPost("http://localhost:5000/sessions")
+      .onPost(`${BACKEND_URL}/sessions`)
       .reply(200, { id: 1, username: "bob" });
 
-    mock.onGet("http://localhost:5000/peeps").reply(404);
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(404);
 
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>

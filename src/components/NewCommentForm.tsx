@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../config/config";
 import { MainContext } from "../contexts/MainContext";
 import "./NewCommentForm.css";
 
@@ -24,7 +25,7 @@ const NewCommentForm: React.FC<CommentProps> = ({ peepId }: CommentProps) => {
 
     const sendNewComment = async () => {
       axios
-        .post(`http://localhost:5000/peeps/${peepId}/comments`, data)
+        .post(`${BACKEND_URL}/peeps/${peepId}/comments`, data)
         .then(() => {
           setLastUpdateTime(Date.now());
         })

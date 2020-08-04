@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../config/config";
 import { LikesProps, MainContext } from "../contexts/MainContext";
 import "./LikesWidget.css";
 
@@ -27,8 +28,9 @@ const LikesWidget: React.FC<LikesWidgetProps> = ({
 
     const addLike = async () => {
       const data = { userId: userState.id };
+
       axios
-        .post(`http://localhost:5000/peeps/${peepId}/likes`, data)
+        .post(`${BACKEND_URL}/peeps/${peepId}/likes`, data)
         .then(() => {
           setNumberOfLikes((currentNumber) => currentNumber + 1);
           setIsLiked((currentLiked) => !currentLiked);
@@ -41,7 +43,7 @@ const LikesWidget: React.FC<LikesWidgetProps> = ({
 
     const deleteLike = async () => {
       axios
-        .delete(`http://localhost:5000/peeps/${peepId}/likes/${userState.id}`)
+        .delete(`${BACKEND_URL}/peeps/${peepId}/likes/${userState.id}`)
         .then(() => {
           setNumberOfLikes((currentNumber) => currentNumber - 1);
           setIsLiked((currentLiked) => !currentLiked);

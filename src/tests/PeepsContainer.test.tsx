@@ -3,6 +3,7 @@ import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import PeepsContainer from "../components/PeepsContainer";
 import { MainContextProvider } from "../contexts/MainContext";
 
@@ -20,7 +21,7 @@ describe("PeepsContainer", () => {
   });
 
   beforeEach(() => {
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
         {
           id: 1,
@@ -75,7 +76,7 @@ describe("PeepsContainer", () => {
 
   it("renders a new peep when it has been created", async () => {
     mock
-      .onGet("http://localhost:5000/peeps")
+      .onGet(`${BACKEND_URL}/peeps`)
       .reply(200, {
         peeps: [
           {
@@ -94,7 +95,7 @@ describe("PeepsContainer", () => {
           }
         ]
       })
-      .onGet("http://localhost:5000/peeps")
+      .onGet(`${BACKEND_URL}/peeps`)
       .reply(200, {
         peeps: [
           {
@@ -121,7 +122,7 @@ describe("PeepsContainer", () => {
         ]
       });
 
-    mock.onPost("http://localhost:5000/peeps").reply(200);
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(200);
 
     render(
       <MainContextProvider initialState={{ name: "", id: 0 }}>
