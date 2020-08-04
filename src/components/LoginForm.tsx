@@ -29,6 +29,8 @@ const LoginForm: React.FC = () => {
           }
         })
         .then(() => {
+          console.log(cookie.load("username"));
+          console.log(cookie.load("id"));
           setUserState({
             name: cookie.load("username"),
             id: cookie.load("id")
