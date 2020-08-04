@@ -62,12 +62,7 @@ const MainContextProvider: React.FC<IProps> = ({
     const fetchPeeps = async () => {
       axios
         .get(`${BACKEND_URL}/peeps`, {
-          cancelToken: source.token,
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          }
+          cancelToken: source.token
         })
         .then((result) => {
           setPeeps(result.data.peeps);
