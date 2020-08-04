@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
-import cookie from "react-cookies";
 import BACKEND_URL from "../config/config";
 import { MainContext } from "../contexts/MainContext";
 import "./AuthorisationForm.css";
@@ -21,19 +20,11 @@ const LoginForm: React.FC = () => {
 
     const sendLogin = async () => {
       axios
-        .post(`${BACKEND_URL}/sessions`, data, {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          }
-        })
-        .then(() => {
-          console.log(cookie.load("username"));
-          console.log(cookie.load("id"));
+        .post(`${BACKEND_URL}/sessions`, data)
+        .then((res) => {
           setUserState({
-            name: cookie.load("username"),
-            id: cookie.load("id")
+            name: res.data.username,
+            id: res.data.id
           });
           history.push("/peeps");
         })
