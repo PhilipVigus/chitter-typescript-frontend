@@ -7,12 +7,6 @@ import BACKEND_URL from "../config/config";
 import PeepsContainer from "../components/PeepsContainer";
 import { MainContextProvider } from "../contexts/MainContext";
 
-jest.mock("react-cookies", () => ({
-  load: jest.fn().mockImplementation(() => {
-    return "phil";
-  })
-}));
-
 describe("PeepsContainer", () => {
   let mock: MockAdapter;
 
