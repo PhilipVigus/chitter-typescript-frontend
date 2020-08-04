@@ -1,43 +1,104 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import PeepsList from "../components/PeepsList";
+import { MainContextProvider } from "../contexts/MainContext";
 
 describe("PeepsList", () => {
-  it("renders static text", async () => {
-    render(<PeepsList peeps={[]} />);
+  let mock: MockAdapter;
 
-    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
+  beforeAll(() => {
+    mock = new MockAdapter(axios);
   });
 
-  it("renders list of peeps", async () => {
-    render(
-      <PeepsList
-        peeps={[
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
-        ]}
-      />
-    );
+  beforeEach(() => {
+    const earliestDate = new Date(2020, 12, 1);
+    const middleDate = new Date(2020, 12, 2);
+    const latestDate = new Date(2020, 12, 3);
 
-    expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
-    expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
+      peeps: [
+        {
+          id: 1,
+          userId: 1,
+          username: "bob",
+          text: "Text 1",
+          timeCreated: earliestDate,
+          comments: [],
+          likes: []
+        },
+        {
+          id: 2,
+          userId: 1,
+          username: "bob",
+          text: "Text 2",
+          timeCreated: latestDate,
+          comments: [],
+          likes: []
+        },
+        {
+          id: 3,
+          userId: 1,
+          username: "bob",
+          text: "Text 3",
+          timeCreated: middleDate,
+          comments: [],
+          likes: []
+        }
+      ]
+    });
+  });
+
+  afterEach(() => {
+    mock.reset();
+  });
+
+  afterAll(() => {
+    mock.restore();
   });
 
   it("renders list of peeps in reverse chronological order", async () => {
     render(
-      <PeepsList
-        peeps={[
-          { _id: 1, _text: "Text 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Text 2", _timeCreated: new Date() },
-          { _id: 3, _text: "Text 3", _timeCreated: new Date() }
-        ]}
-      />
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router>
+          <PeepsList />
+        </Router>
+      </MainContextProvider>
     );
 
     const peeps = await screen.findAllByText(/Text/);
 
-    expect(peeps[0].innerHTML).toBe("Text 3");
-    expect(peeps[1].innerHTML).toBe("Text 2");
+    expect(peeps[0].innerHTML).toBe("Text 2");
+    expect(peeps[1].innerHTML).toBe("Text 3");
     expect(peeps[2].innerHTML).toBe("Text 1");
+  });
+
+  it("disables the like button if the peep is yours", async () => {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
+      peeps: [
+        {
+          id: 1,
+          userId: 1,
+          username: "steve",
+          text: "Text 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: ["bob"]
+        }
+      ]
+    });
+
+    render(
+      <MainContextProvider initialState={{ name: "steve", id: 0 }}>
+        <Router>
+          <PeepsList />
+        </Router>
+      </MainContextProvider>
+    );
+
+    expect(await screen.findByRole("button")).toBeDisabled();
   });
 });

@@ -1,12 +1,17 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import PeepsContainer from "./components/PeepsContainer";
+import { MainContextProvider } from "./contexts/MainContext";
+import MainContainer from "./components/MainContainer";
 
 function App(): JSX.Element {
   return (
     <div>
-      <div>Chitter</div>
-      <PeepsContainer />
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router>
+          <MainContainer />
+        </Router>
+      </MainContextProvider>
     </div>
   );
 }

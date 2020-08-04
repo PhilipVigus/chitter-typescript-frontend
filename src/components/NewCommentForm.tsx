@@ -1,14 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import BACKEND_URL from "../config/config";
 import { MainContext } from "../contexts/MainContext";
-import "./NewPeepForm.css";
+import "./NewCommentForm.css";
 
-const NewPeepForm: React.FC = () => {
+interface CommentProps {
+  peepId: number;
+}
+
+const NewCommentForm: React.FC<CommentProps> = ({ peepId }: CommentProps) => {
   const [text, setText] = useState<string>("");
   const [userState, , , setLastUpdateTime] = useContext(MainContext);
 
-  const handlePeepSubmit = (
+  const handleCommentSubmit = (
     evt: React.MouseEvent<HTMLInputElement, MouseEvent>
   ) => {
     evt.preventDefault();
@@ -17,40 +21,40 @@ const NewPeepForm: React.FC = () => {
       return;
     }
 
-    const data = { userId: userState.id, text };
+    const data = { userId: userState.id, peepId, text };
 
-    const sendNewPeep = async () => {
+    const sendNewComment = async () => {
       axios
-        .post(`${BACKEND_URL}/peeps`, data)
+        .post(`${BACKEND_URL}/peeps/${peepId}/comments`, data)
         .then(() => {
           setLastUpdateTime(Date.now());
         })
         .catch((error) => console.error(error));
     };
 
-    sendNewPeep();
+    sendNewComment();
     setText("");
   };
 
   return (
-    <div className="new-peep-form-container">
+    <div className="new-comment-form-container">
       <textarea
-        className="new-peep-form-container__input"
-        rows={6}
-        placeholder="What's on your mind?"
+        className="new-comment-form-container__input"
+        rows={3}
+        placeholder="Reply"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <div>
         <input
-          className="new-peep-form__button"
+          className="new-comment-form__button"
           type="button"
-          value="Tell the world"
-          onClick={handlePeepSubmit}
+          value="Submit"
+          onClick={handleCommentSubmit}
         />
       </div>
     </div>
   );
 };
 
-export default NewPeepForm;
+export default NewCommentForm;

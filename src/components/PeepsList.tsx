@@ -1,17 +1,18 @@
-import React from "react";
-import Peep, { PeepProps } from "./Peep";
+import React, { useContext } from "react";
+import PeepSummary from "./PeepSummary";
+import { MainContext, PeepProps } from "../contexts/MainContext";
 
-type PeepsListProps = {
-  peeps: PeepProps[];
-};
+const PeepsList: React.FC = () => {
+  const [, , newPeeps] = useContext(MainContext);
 
-const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
   return (
     <div>
-      <div>Peeps List</div>
-      {peeps
+      {newPeeps
         .sort((a: PeepProps, b: PeepProps) => {
-          if (new Date(a._timeCreated) < new Date(b._timeCreated)) {
+          if (
+            new Date(a.timeCreated).getTime() <
+            new Date(b.timeCreated).getTime()
+          ) {
             return 1;
           } else {
             return -1;
@@ -19,11 +20,15 @@ const PeepsList: React.FC<PeepsListProps> = ({ peeps }: PeepsListProps) => {
         })
         .map((peep) => {
           return (
-            <Peep
-              key={peep._id}
-              _id={peep._id}
-              _text={peep._text}
-              _timeCreated={peep._timeCreated}
+            <PeepSummary
+              key={peep.id}
+              id={peep.id}
+              userId={peep.userId}
+              username={peep.username}
+              text={peep.text}
+              timeCreated={peep.timeCreated}
+              comments={peep.comments}
+              likes={peep.likes}
             />
           );
         })}

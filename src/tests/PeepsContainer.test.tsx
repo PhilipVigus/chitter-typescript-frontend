@@ -1,64 +1,143 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import PeepsContainer from "../components/PeepsContainer";
+import { MainContextProvider } from "../contexts/MainContext";
+
+jest.mock("react-cookies", () => ({
+  load: jest.fn().mockImplementation(() => {
+    return "phil";
+  })
+}));
 
 describe("PeepsContainer", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
-    mock.onGet("http://localhost:5000/peeps").reply(200, {
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
+    mock.onGet(`${BACKEND_URL}/peeps`).reply(200, {
       peeps: [
-        { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-        { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
+        {
+          id: 1,
+          userId: 1,
+          username: "bob",
+          text: "Text 1",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        },
+        {
+          id: 2,
+          userId: 1,
+          username: "bob",
+          text: "Text 2",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        },
+        {
+          id: 3,
+          userId: 1,
+          username: "bob",
+          text: "Text 3",
+          timeCreated: new Date(),
+          comments: [],
+          likes: []
+        }
       ]
     });
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(<PeepsContainer />);
-
-    expect(await screen.findByText(/Peeps List/)).toBeInTheDocument();
-  });
-
   it("renders list of peeps", async () => {
-    render(<PeepsContainer />);
-
-    expect(await screen.findByText(/Peep 1/)).toBeInTheDocument();
-    expect(await screen.findByText(/Peep 2/)).toBeInTheDocument();
+    render(
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router>
+          <PeepsContainer />
+        </Router>
+      </MainContextProvider>
+    );
+    expect(await screen.findByText(/Text 1/)).toBeInTheDocument();
+    expect(await screen.findByText(/Text 2/)).toBeInTheDocument();
   });
 
   it("renders a new peep when it has been created", async () => {
     mock
-      .onGet("http://localhost:5000/peeps")
+      .onGet(`${BACKEND_URL}/peeps`)
       .reply(200, {
         peeps: [
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() }
+          {
+            id: 1,
+            text: "Peep 1",
+            timeCreated: new Date(),
+            comments: [],
+            likes: []
+          },
+          {
+            id: 2,
+            text: "Peep 2",
+            timeCreated: new Date(),
+            comments: [],
+            likes: []
+          }
         ]
       })
-      .onGet("http://localhost:5000/peeps")
+      .onGet(`${BACKEND_URL}/peeps`)
       .reply(200, {
         peeps: [
-          { _id: 1, _text: "Peep 1", _timeCreated: new Date() },
-          { _id: 2, _text: "Peep 2", _timeCreated: new Date() },
-          { _id: 3, _text: "Some text", _timeCreated: new Date() }
+          {
+            id: 1,
+            text: "Peep 1",
+            timeCreated: new Date(),
+            comments: [],
+            likes: []
+          },
+          {
+            id: 2,
+            text: "Peep 2",
+            timeCreated: new Date(),
+            comments: [],
+            likes: []
+          },
+          {
+            id: 3,
+            text: "Some text",
+            timeCreated: new Date(),
+            comments: [],
+            likes: []
+          }
         ]
       });
 
-    mock.onPost("http://localhost:5000/peeps").reply(200);
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(200);
 
-    render(<PeepsContainer />);
+    render(
+      <MainContextProvider initialState={{ name: "", id: 0 }}>
+        <Router>
+          <PeepsContainer />
+        </Router>
+      </MainContextProvider>
+    );
 
     const textArea = (await screen.findByRole("textbox")) as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = await screen.findByRole("button", { name: "Submit" });
+    const submitButton = await screen.findByRole("button", {
+      name: "Tell the world"
+    });
     fireEvent.click(submitButton);
 
     expect(await screen.findByText(/Some text/)).toBeInTheDocument();

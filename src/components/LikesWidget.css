@@ -1,0 +1,7 @@
+.likes-widget__button:disabled {
+  color: grey;
+}
+
+.likes-widget__icon {
+  margin: 0 8px;
+}

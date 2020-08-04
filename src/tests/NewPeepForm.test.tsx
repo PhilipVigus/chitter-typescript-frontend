@@ -2,32 +2,35 @@ import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import NewPeepForm from "../components/NewPeepForm";
 
 describe("NewPeepForm", () => {
-  const mock = new MockAdapter(axios);
+  let mock: MockAdapter;
 
   beforeAll(() => {
-    mock.onPost("http://localhost:5000/peeps").reply(200);
+    mock = new MockAdapter(axios);
+  });
+
+  beforeEach(() => {
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(200);
+  });
+
+  afterEach(() => {
+    mock.reset();
   });
 
   afterAll(() => {
     mock.restore();
   });
 
-  it("renders static text", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
-
-    expect(await screen.findByText(/New Peep/)).toBeInTheDocument();
-  });
-
   it("posts the peep when you click submit", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
+    render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = screen.getByRole("button", { name: "Submit" });
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -37,13 +40,24 @@ describe("NewPeepForm", () => {
     });
   });
 
+  it("doesnt post the peep if it is empty", async () => {
+    render(<NewPeepForm />);
+
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mock.history.post.length).toBe(0);
+    });
+  });
+
   it("clears its contents when you click submit", async () => {
-    render(<NewPeepForm newPeepCallback={() => {}} />);
+    render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = screen.getByRole("button", { name: "Submit" });
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -51,16 +65,24 @@ describe("NewPeepForm", () => {
     });
   });
 
-  it("calls the callback when you click submit", async () => {
-    const mockCallback = jest.fn();
-    render(<NewPeepForm newPeepCallback={mockCallback} />);
+  it("errors to console with the peep submit fails", async () => {
+    const original = console.error;
+    console.error = jest.fn();
+
+    mock.onPost(`${BACKEND_URL}/peeps`).reply(404);
+
+    render(<NewPeepForm />);
 
     const textArea = screen.getByRole("textbox") as HTMLInputElement;
     fireEvent.change(textArea, { target: { value: "Some text" } });
 
-    const submitButton = screen.getByRole("button", { name: "Submit" });
+    const submitButton = screen.getByRole("button", { name: "Tell the world" });
     fireEvent.click(submitButton);
 
-    expect(mockCallback).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    console.error = original;
   });
 });
