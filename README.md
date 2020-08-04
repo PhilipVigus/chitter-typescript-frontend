@@ -1,11 +1,5 @@
-# Chitter - front end
+# Chitter front end
 
-A Twitter clone using React and Typescript.
+This repository contains the front end for my Chitter project. The details of this project and how to use it can be found here:
 
-chitter.netlify.app
-
-## Minimum viable product
-
-View messages
-Post messages
-static code quality checks
+- [Chitter](https://github.com/PhilipVigus/chitter-typescript)
