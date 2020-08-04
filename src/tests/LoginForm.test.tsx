@@ -1,9 +1,9 @@
 import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import BACKEND_URL from "../config/config";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import BACKEND_URL from "../config/config";
 import LoginForm from "../components/LoginForm";
 
 describe("LoginForm", () => {
